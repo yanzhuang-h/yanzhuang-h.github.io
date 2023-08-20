@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>关于hexo deploy时Spawn Failed的几种解决方案</title>
+      <link href="/posts/31824.html"/>
+      <url>/posts/31824.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>昨天晚上，我兴致勃勃的打开了<code>cmd</code>窗口，准备写一篇有关<a href="">了解Kaggle</a>的博客，当我文思泉涌，啪嗒啪嗒地码完整篇文章，理所当然地执行<code>hexo clean  &amp;&amp; hexo g &amp;&amp; hexo d</code>部署到github时，终端窗口冷不丁地弹出了几行绚丽的错误：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Please make sure you have the correct access rights and the repository exists.</span><br><span class="line">FATAL Something&#x27;s wrong. Maybe you can <span class="built_in">find</span> the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="line"><span class="function">Error: <span class="title">Spawn</span> <span class="title">failed</span></span></span><br><span class="line"><span class="function">    <span class="title">at</span> <span class="title">ChildProcess</span>.&lt;<span class="title">anonymous</span>&gt; (<span class="title">D</span>:\<span class="title">blog</span>\<span class="title">hexo</span>\<span class="title">node_modules</span>\<span class="title">hexo</span>-<span class="title">util</span>\<span class="title">lib</span>\<span class="title">spawn.js</span>:51:21)</span></span><br><span class="line"><span class="function">    <span class="title">at</span> <span class="title">ChildProcess.emit</span> (<span class="title">node:events</span>:513:28)</span></span><br><span class="line"><span class="function">    <span class="title">at</span> <span class="title">cp.emit</span> (<span class="title">D</span>:\<span class="title">blog</span>\<span class="title">hexo</span>\<span class="title">node_modules</span>\<span class="title">cross</span>-<span class="title">spawn</span>\<span class="title">lib</span>\<span class="title">enoent.js</span>:34:29)</span></span><br><span class="line"><span class="function">    <span class="title">at</span> <span class="title">ChildProcess._handle.onexit</span> (<span class="title">node:internal</span>/<span class="title">child_process</span>:291:12)</span></span><br></pre></td></tr></table></figure></p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="删除文件夹"><a href="#删除文件夹" class="headerlink" title="删除文件夹"></a>删除文件夹</h3><blockquote><p>网上的解决方案大多是这种，但是并没有解决我自己的问题，在此只是将其列出，作为一种通用方案。</p></blockquote><p>原理：我们在进行<code>git push</code>或<code>hexo d</code>的时候改变了一些<code>.deploy_git</code>文件夹下的内容。</p><ol><li>删除<code>.deploy_git</code>文件夹</li><li>在<code>cmd</code>中输入<code>git config --global core.autocrlf false</code></li><li>依次执行<code>hexo clean</code>&amp;&amp;<code>hexo g</code>&amp;&amp;<code>hexo d</code></li></ol><p>问题解决，皆大欢喜，如果错误依旧，请参考下面的方法。</p><h3 id="github端口问题"><a href="#github端口问题" class="headerlink" title="github端口问题"></a>github端口问题</h3><p>验证：我们正常使用<code>git pull</code>进行拉取，终端中会显示下面的错误：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ssh: <span class="title">connect</span> <span class="title">to</span> <span class="title">host</span> <span class="title">github.com</span> <span class="title">port</span> 22: <span class="title">Connection</span> <span class="title">timed</span> <span class="title">out</span></span></span><br><span class="line"><span class="function"><span class="title">fatal</span>: <span class="title">Could</span> <span class="title">not</span> <span class="title">read</span> <span class="title">from</span> <span class="title">remote</span> <span class="title">repository</span>.</span></span><br></pre></td></tr></table></figure></p><p><strong>这个错误提示的是连接github.com的22端口被拒绝了。</strong></p><p>由于22端口可能被防火墙屏蔽了，我们可以尝试连接github的443端口。</p><blockquote><p>如果没有<code>.ssh</code>文件夹，可参考<a href="https://blog.csdn.net/qq_35495339/article/details/92847819?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-92847819-blog-85260165.235%5Ev38%5Epc_relevant_default_base3&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-92847819-blog-85260165.235%5Ev38%5Epc_relevant_default_base3&amp;utm_relevant_index=1">Github生成密钥</a>，了解ssh的作用。</p></blockquote><ol><li>我们打开<code>C盘</code>中的<code>.ssh</code>文件夹，在其中新建<code>config</code>文件，注意这个文件没有后缀，编辑其内容为：<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User git</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br><span class="line"></span><br><span class="line">Host gitlab.com</span><br><span class="line">Hostname altssh.gitlab.com</span><br><span class="line">User git</span><br><span class="line">Port 443</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure></li><li>修改完成后，在终端中敲入<code>ssh -T git@github.com</code>来测试和Github的网络通信是否正常，如果有下面的提示，就表示一切正常了：<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">D:\<span class="title">blog</span>\<span class="title">hexo</span>&gt;<span class="title">ssh</span> -<span class="title">T</span> <span class="title">git</span>@<span class="title">github.com</span></span></span><br><span class="line"><span class="function"><span class="title">Are</span> <span class="title">you</span> <span class="title">sure</span> <span class="title">you</span> <span class="title">want</span> <span class="title">to</span> <span class="title">continue</span> <span class="title">connecting</span> (<span class="title">yes</span>/<span class="title">no</span>/[<span class="title">fingerprint</span>])? <span class="title">yes</span></span></span><br><span class="line"><span class="function"><span class="title">Hi</span> <span class="title">yanzhuang</span>-<span class="title">h</span>! <span class="title">You</span>&#x27;<span class="title">ve</span> <span class="title">successfully</span> <span class="title">authenticated</span>, <span class="title">but</span> <span class="title">GitHub</span> <span class="title">does</span> <span class="title">not</span> <span class="title">provide</span> <span class="title">shell</span> <span class="title">access</span>.</span></span><br></pre></td></tr></table></figure></li></ol><p>接下来我们便可以尝试正常的blog部署操作。</p><h3 id="关于其他的方法，后续我看到了将会继续总结到此片博客中。"><a href="#关于其他的方法，后续我看到了将会继续总结到此片博客中。" class="headerlink" title="关于其他的方法，后续我看到了将会继续总结到此片博客中。"></a>关于其他的方法，后续我看到了将会继续总结到此片博客中。</h3>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术踩坑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kaggle入门</title>
       <link href="/posts/26966.html"/>
       <url>/posts/26966.html</url>
@@ -195,9 +214,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -206,9 +225,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
