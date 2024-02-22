@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结 | Zoney的窄门</title><meta name="author" content="Zoney Hu"><meta name="copyright" content="Zoney Hu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="代码随想录算法训练营第二天| 977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结977.有序数组的平方 题目链接：977.有序数组的平方文档讲解：977.有序数组的平方视频讲解：977.有序数组的平方状态：暴力法能够解决，双指针法自己也想到了，思路和卡哥基本一致，学习一下卡哥的代码书写😸  学习前的想法给出的题目建议是理解双指针的思想，因此我下面将会先考虑暴力方法解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结">
+<meta property="og:url" content="https://yanzhuang-h.github.io/posts/40695.html">
+<meta property="og:site_name" content="Zoney的窄门">
+<meta property="og:description" content="代码随想录算法训练营第二天| 977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结977.有序数组的平方 题目链接：977.有序数组的平方文档讲解：977.有序数组的平方视频讲解：977.有序数组的平方状态：暴力法能够解决，双指针法自己也想到了，思路和卡哥基本一致，学习一下卡哥的代码书写😸  学习前的想法给出的题目建议是理解双指针的思想，因此我下面将会先考虑暴力方法解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png">
+<meta property="article:published_time" content="2024-02-22T15:53:57.000Z">
+<meta property="article:modified_time" content="2024-02-22T15:55:32.248Z">
+<meta property="article:author" content="Zoney Hu">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yanzhuang-h.github.io/posts/40695.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-22 23:55:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/myStyle.css"><link rel="stylesheet" href="/css/fontsetting.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link href="https://cdn.bootcdn.net/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/404_door.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-calendar"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-a-business-icon-Bigpromotion"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-all"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-user-defined"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-customer-service"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-writing"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-customer"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Zoney的窄门"><span class="site-name">Zoney的窄门</span></a><div id="he-plugin-simple"></div></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-calendar"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-a-business-icon-Bigpromotion"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-all"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-user-defined"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-customer-service"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-writing"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-customer"></i><span> 关于</span></a></div></div><center id="name-container"></center><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></div><div id="nav-right"> <div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-22T15:53:57.000Z" title="发表于 2024-02-22 23:53:57">2024-02-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-22T15:55:32.248Z" title="更新于 2024-02-22 23:55:32">2024-02-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="代码随想录算法训练营第二天-977-有序数组的平方-，209-长度最小的子数组-，59-螺旋矩阵II-，总结"><a href="#代码随想录算法训练营第二天-977-有序数组的平方-，209-长度最小的子数组-，59-螺旋矩阵II-，总结" class="headerlink" title="代码随想录算法训练营第二天| 977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结"></a>代码随想录算法训练营第二天| 977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结</h2><h3 id="977-有序数组的平方"><a href="#977-有序数组的平方" class="headerlink" title="977.有序数组的平方"></a>977.有序数组的平方</h3><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/squares-of-a-sorted-array/">977.有序数组的平方</a><br>文档讲解：<a target="_blank" rel="noopener" href="https://programmercarl.com/0977.%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9.html">977.有序数组的平方</a><br>视频讲解：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1QB4y1D7ep">977.有序数组的平方</a><br>状态：暴力法能够解决，双指针法自己也想到了，思路和卡哥基本一致，学习一下卡哥的代码书写😸</p>
+</blockquote>
+<h4 id="学习前的想法"><a href="#学习前的想法" class="headerlink" title="学习前的想法"></a>学习前的想法</h4><p>给出的题目建议是理解双指针的思想，因此我下面将会先考虑暴力方法解决，之后独立思考一下双指针法如何实现。</p>
+<p>顾名思义，我们需要对一个增序排列数组中的每个元素求平方，得到一个每个数字平方所组成的增序排列数组。</p>
+<p>首先考虑暴力法求解，即求出每个元素的平方，将其重新排序，在这里我使用冒泡排序对新数组重新排序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortedSquares</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>; k &lt; nums.<span class="built_in">size</span>(); k++) &#123;</span><br><span class="line">            nums[k] = nums[k] * nums[k];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; nums.<span class="built_in">size</span>() - i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j] &gt; nums[j+<span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="type">int</span> tmp = nums[j+<span class="number">1</span>];</span><br><span class="line">                    nums[j+<span class="number">1</span>] = nums[j];</span><br><span class="line">                    nums[j] = tmp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2024/2/22<br>代码成功ac，但是时间复杂度为O(n^2)，执行时间达到了1000+ms，效率太低，考虑可以采用快速排序法，优化时间效率。</p>
+</blockquote>
+<p>下面考虑卡哥建议的双指针法，为了避免时间浪费，我在这里仅仅使用文字记录我的思路：</p>
+<p>根据第一天的学习，目前我了解到的双指针包括 快慢指针 和 左右指针，考虑到数组增序排列，我的想法是使用左右指针，这样的话会有下面几种情况：</p>
+<p>假定左指针为<code>left</code>指向起始位置，右指针为<code>right</code>指向终止位置。</p>
+<p>若数组元素全部非负，即<code>left &gt;= 0</code>，则只需将原数组元素求平方即可；</p>
+<p>若数组元素包含负值，即<code>left &lt; 0</code>，则分别左右遍历，取绝对值最大的数放置在新数组的末位。</p>
+<p>综上，只需左右分别遍历，比较大小，将绝对值最大的数求平方存储。</p>
+<blockquote>
+<p>2024/2/22<br>以上是我独立的一些想法，不知道对不对。😂</p>
+</blockquote>
+<h4 id="学习后的想法"><a href="#学习后的想法" class="headerlink" title="学习后的想法"></a>学习后的想法</h4><p>数组特性：平方之后，最大元素在数组两侧，因此可以用 左右指针 ，逐步向中间合拢。</p>
+<blockquote>
+<p>2022/2/22<br>和我想得差不多😼</p>
+</blockquote>
+<p>假设左指针为<code>left</code>，右指针为<code>right</code>，值得注意的地方有下面几处：</p>
+<p>有关循环条件的结束：<code>left &lt;= right</code>，为什么需要采用这种形式，而不是<code>left &lt; right</code>？<br>这是因为后者会导致left==right时指向的元素不能被正确加入到新数组中。</p>
+<p>有关<code>left</code>和<code>right</code>的取值：如果<code>left</code>指向的元素大，则<code>left++</code>，<code>right</code>不变；如果<code>right</code>指向的元素大，则<code>right--</code>，<code>left</code>不变。注意，以上元素比较的是平方的大小。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个新的数组</span><br><span class="line">vector&lt;int&gt; result;</span><br><span class="line">int k = nums.size() - 1;</span><br><span class="line"></span><br><span class="line">for(int left = 0, right = nums.size() - 1; left &lt;= right;) &#123;</span><br><span class="line">	if(nums[left] * nums[left] &gt; nums[right] * nums[right]) &#123;</span><br><span class="line">		result[k--] = nums[left] * nums[left];</span><br><span class="line">		left++;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		result[k--] = nums[right] * nums[right];</span><br><span class="line">		right--;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return result;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>卡哥：这里还是说一下，大家不必太在意leetcode上执行用时，打败多少多少用户，这个就是一个玩具，非常不准确。</p>
+</blockquote>
+<h3 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209.长度最小的子数组"></a>209.长度最小的子数组</h3><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/">209.长度最小的子数组</a><br>文档讲解：<a target="_blank" rel="noopener" href="https://programmercarl.com/0209.%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84.html">209.长度最小的子数组</a><br>视频讲解：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tZ4y1q7XE">拿下滑动窗口！ | LeetCode 209 长度最小的子数组</a><br>题目建议：理解滑动窗口<br>状态：暴力法和滑动窗口发都没有想到，好菜🥲</p>
+</blockquote>
+<h4 id="学习前的想法-1"><a href="#学习前的想法-1" class="headerlink" title="学习前的想法"></a>学习前的想法</h4><p>给定一个含有<code>n</code> 个正整数的数组和一个正整数<code>target</code>。</p>
+<p>找出该数组中满足其总和<strong>大于等于</strong><code>target</code> 的长度最小的 连续子数组  ，并返回其长度。如果不存在符合条件的子数组，返回 0 。</p>
+<p>卡哥给出的建议是采用滑动窗口。</p>
+<blockquote>
+<p>题外话 2024/2/22<br>滑动窗口这个名词在计算机领域经常出现，本人第一次了解是在学习计算机网络时，好像是在传送报文的时候使用的。最近是在学习LSTM（长短时记忆）算法中也有滑动窗口。</p>
+</blockquote>
+<p>我的想法是，先取一个和数组等大的滑动窗口，求和，与target作比较，之后不断减小滑动窗口的大小，以获得最小的子序列。</p>
+<p>但是感觉这样做似乎有点复杂，代码我也没有尝试去实现。</p>
+<p>暴力法，因为刚开始就按卡哥引导的去思考了，所以没有去想，在下面会给出暴力法的实现。</p>
+<h4 id="学习后的想法-1"><a href="#学习后的想法-1" class="headerlink" title="学习后的想法"></a>学习后的想法</h4><p>暴力法（两层for循环）：一层for循环用于改变起始位置，一层for循环用于改变终止位置，这样可以将所有可能的集合遍历完全。需要使用一个变量来存储符合条件集合的长度，并不断更新。</p>
+<p>滑动窗口法：我认为滑动窗口的本质还是双指针，卡哥在视频中也提到了。</p>
+<p>我们的滑动窗口，实际上是一个慢指针i，和一个快指针j，之间的距离。其中j也用来表示终止位置，i则表示起始位置。</p>
+<p>使用一个for循环，不断的将j向后遍历，当其与i之间的集合所包含的元素之和sum大于或等于target，记录这时的集合长度length。</p>
+<blockquote>
+<p>为什么for循环中遍历的是终止位置？<br>因为如果遍历的是起始位置，将无法遍历剩下的终止位置，而陷入暴力解法</p>
+</blockquote>
+<p>此时，我们需要使用一个while循环来实现将i向后移动，不断减小sum的值，并更新length，直到sum的值小于target，跳出循环。</p>
+<p>最终我们可以得到最小的子序列长度。</p>
+<p>需要注意的是：</p>
+<p>窗口内的值大于或等于target，移动起始位置；小于target，移动终止位置。</p>
+<h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4><p>暴力法<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int sum = 0; // 存储所取集合的值</span><br><span class="line">int result = INT32_MAX; // 最终结果</span><br><span class="line">int length = 0; // 子序列长度</span><br><span class="line"></span><br><span class="line">for(int i = 0; i &lt; nums.size(); i++) &#123;</span><br><span class="line">	sum = 0;</span><br><span class="line">	for(int j = i; j &lt; nums.size(); j++) &#123;</span><br><span class="line">		sum += nums[j];</span><br><span class="line">		if(sum &gt;= target) &#123;</span><br><span class="line">			length = j - i + 1;</span><br><span class="line">			result = result &lt; length ? result : length;</span><br><span class="line">			break;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如果result没有被赋值的话，就返回0，说明没有符合条件的子序列</span><br><span class="line">return result == INT32_MAX ? 0 : result;</span><br></pre></td></tr></table></figure></p>
+<p>滑动窗口（双指针法）<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int i = 0; // 起始指针</span><br><span class="line">int length = 0; // 滑动窗口的长度</span><br><span class="line">int sum = 0; // 滑动窗口数值之和</span><br><span class="line">int result = INT32_MAX;</span><br><span class="line"></span><br><span class="line">for(int j = 0; j &lt; nums.size(); j++) &#123;</span><br><span class="line">	sum += nums[j];</span><br><span class="line">	while(sum &gt;= target) &#123;</span><br><span class="line">		length = j - i + 1;</span><br><span class="line">		result = result &lt; length ? result : length;</span><br><span class="line">		sum -= nums[i--];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return result == INT32_MAX ? 0 : result;</span><br></pre></td></tr></table></figure></p>
+<h3 id="59-螺旋矩阵II"><a href="#59-螺旋矩阵II" class="headerlink" title="59.螺旋矩阵II"></a>59.螺旋矩阵II</h3><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/spiral-matrix-ii/">59.螺旋矩阵II</a><br>文档讲解：<a target="_blank" rel="noopener" href="https://programmercarl.com/0059.%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II.html">59.螺旋矩阵II</a><br>视频讲解：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1SL4y1N7mV/">59.螺旋矩阵II</a><br>状态：本人最讨厌的矩阵相关题目😢完全没有头绪</p>
+</blockquote>
+<h4 id="学习前的想法-2"><a href="#学习前的想法-2" class="headerlink" title="学习前的想法"></a>学习前的想法</h4><p>一看见矩阵就头大。</p>
+<h4 id="学习后的想法-2"><a href="#学习后的想法-2" class="headerlink" title="学习后的想法"></a>学习后的想法</h4><p>面试中经常出现的题目，不涉及算法，实际上是一道模拟题目。</p>
+<p>重点是边界处理问题！！！</p>
+<p>循环不变量：不变量实际上就是我们做边界处理的规则，左闭右开 或是 左闭右闭。</p>
+<p>多余的话不多说，根据<code>n</code>的值确定需要遍历多少圈，然后通过<code>while</code>循环一圈圈遍历，选择左闭右开的边界。</p>
+<p>其中n的奇偶性需要进行一个讨论。</p>
+<h4 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h4><blockquote>
+<p>2024/2/22<br>直接复制的卡哥的代码，是在是干不动了🤪，复习的时候再自己搞一下。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">generateMatrix</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">res</span>(n, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n, <span class="number">0</span>)); <span class="comment">// 使用vector定义一个二维数组</span></span><br><span class="line">        <span class="type">int</span> startx = <span class="number">0</span>, starty = <span class="number">0</span>; <span class="comment">// 定义每循环一个圈的起始位置</span></span><br><span class="line">        <span class="type">int</span> loop = n / <span class="number">2</span>; <span class="comment">// 每个圈循环几次，例如n为奇数3，那么loop = 1 只是循环一圈，矩阵中间的值需要单独处理</span></span><br><span class="line">        <span class="type">int</span> mid = n / <span class="number">2</span>; <span class="comment">// 矩阵中间的位置，例如：n为3， 中间的位置就是(1，1)，n为5，中间位置为(2, 2)</span></span><br><span class="line">        <span class="type">int</span> count = <span class="number">1</span>; <span class="comment">// 用来给矩阵中每一个空格赋值</span></span><br><span class="line">        <span class="type">int</span> offset = <span class="number">1</span>; <span class="comment">// 需要控制每一条边遍历的长度，每次循环右边界收缩一位</span></span><br><span class="line">        <span class="type">int</span> i,j;</span><br><span class="line">        <span class="keyword">while</span> (loop --) &#123;</span><br><span class="line">            i = startx;</span><br><span class="line">            j = starty;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 下面开始的四个for就是模拟转了一圈</span></span><br><span class="line">            <span class="comment">// 模拟填充上行从左到右(左闭右开)</span></span><br><span class="line">            <span class="keyword">for</span> (j = starty; j &lt; n - offset; j++) &#123;</span><br><span class="line">                res[startx][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 模拟填充右列从上到下(左闭右开)</span></span><br><span class="line">            <span class="keyword">for</span> (i = startx; i &lt; n - offset; i++) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 模拟填充下行从右到左(左闭右开)</span></span><br><span class="line">            <span class="keyword">for</span> (; j &gt; starty; j--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 模拟填充左列从下到上(左闭右开)</span></span><br><span class="line">            <span class="keyword">for</span> (; i &gt; startx; i--) &#123;</span><br><span class="line">                res[i][j] = count++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 第二圈开始的时候，起始位置要各自加1， 例如：第一圈起始位置是(0, 0)，第二圈起始位置是(1, 1)</span></span><br><span class="line">            startx++;</span><br><span class="line">            starty++;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// offset 控制每一圈里每一条边遍历的长度</span></span><br><span class="line">            offset += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果n为奇数的话，需要单独给矩阵最中间的位置赋值</span></span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">2</span>) &#123;</span><br><span class="line">            res[mid][mid] = count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="收获与学习时长"><a href="#收获与学习时长" class="headerlink" title="收获与学习时长"></a>收获与学习时长</h3><blockquote>
+<p>学习时长：2h 59min</p>
+</blockquote>
+<p>收获</p>
+<p>前两题可以说是强化了对双指针的使用，最后一题应该说是开拓了一下思维，强化了循环不变量的理解。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>2024/2/22<br>时间有点晚了，睡觉要紧，下次一定。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://yanzhuang-h.github.io">Zoney Hu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yanzhuang-h.github.io/posts/40695.html">https://yanzhuang-h.github.io/posts/40695.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yanzhuang-h.github.io" target="_blank">Zoney的窄门</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/56643.html" title="代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素"><img class="cover" src="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png" onerror="onerror=null;src='/img/404_door.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/56643.html" title="代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素"><img class="cover" src="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-21</div><div class="title">代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="avatar"/></div><div class="author-info__name">Zoney Hu</div><div class="author-info__description">你们要努力进窄门！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yanzhuang-h"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yanzhuang-h" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2817199754@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">纵一苇之所如，凌万顷之茫然</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83%E8%90%A5%E7%AC%AC%E4%BA%8C%E5%A4%A9-977-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9-%EF%BC%8C209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84-%EF%BC%8C59-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II-%EF%BC%8C%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">代码随想录算法训练营第二天| 977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#977-%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9"><span class="toc-number">1.1.</span> <span class="toc-text">977.有序数组的平方</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">学习前的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E6%83%B3%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">学习后的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.3.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.</span> <span class="toc-text">209.长度最小的子数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%9A%84%E6%83%B3%E6%B3%95-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">学习前的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E6%83%B3%E6%B3%95-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">学习后的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#59-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II"><span class="toc-number">1.3.</span> <span class="toc-text">59.螺旋矩阵II</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%9A%84%E6%83%B3%E6%B3%95-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">学习前的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%90%8E%E7%9A%84%E6%83%B3%E6%B3%95-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">学习后的想法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">1.3.3.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E8%8E%B7%E4%B8%8E%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%95%BF"><span class="toc-number">1.4.</span> <span class="toc-text">收获与学习时长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/40695.html" title="代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结"><img src="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结"/></a><div class="content"><a class="title" href="/posts/40695.html" title="代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结">代码随想录算法训练营第二天-977.有序数组的平方 ，209.长度最小的子数组 ，59.螺旋矩阵II ，总结</a><time datetime="2024-02-22T15:53:57.000Z" title="发表于 2024-02-22 23:53:57">2024-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/56643.html" title="代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素"><img src="https://www.freeimg.cn/i/2024/02/21/65d6061b743f8.png" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素"/></a><div class="content"><a class="title" href="/posts/56643.html" title="代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素">代码随想录算法训练营第一天| 704. 二分查找、27. 移除元素</a><time datetime="2024-02-21T14:10:13.000Z" title="发表于 2024-02-21 22:10:13">2024-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/63534.html" title="test"><img src="/img/banner.jpg" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="test"/></a><div class="content"><a class="title" href="/posts/63534.html" title="test">test</a><time datetime="2024-02-20T12:44:01.000Z" title="发表于 2024-02-20 20:44:01">2024-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6053.html" title="Python数据分析:数据加载与存储（六）"><img src="/../img/404_icecream_whale.png" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="Python数据分析:数据加载与存储（六）"/></a><div class="content"><a class="title" href="/posts/6053.html" title="Python数据分析:数据加载与存储（六）">Python数据分析:数据加载与存储（六）</a><time datetime="2023-09-16T07:31:15.000Z" title="发表于 2023-09-16 15:31:15">2023-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/31824.html" title="关于hexo deploy时Spawn Failed的几种解决方案"><img src="/img/banner.jpg" onerror="this.onerror=null;this.src='/img/404_door.jpg'" alt="关于hexo deploy时Spawn Failed的几种解决方案"/></a><div class="content"><a class="title" href="/posts/31824.html" title="关于hexo deploy时Spawn Failed的几种解决方案">关于hexo deploy时Spawn Failed的几种解决方案</a><time datetime="2023-08-20T03:42:13.000Z" title="发表于 2023-08-20 11:42:13">2023-08-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zoney Hu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script src="/js/iconfont.js"></script><script src="/js/jquery.js"></script><script src="/js/foot.js"></script><script src="/js/nav.js"></script><script src="http://cdn.bootcss.com/pace/1.0.2/pace.min.js" async></script><script src="/js/weather.js" async></script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script src="/js/copy.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
