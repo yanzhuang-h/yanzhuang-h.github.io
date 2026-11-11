@@ -1,0 +1,56 @@
+menu:
+  首页: / || fas fa-home
+  时间线: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  关于: /about/ || fas fa-user
+social:
+  fab fa-github: https://github.com/yanzhuang-h || GitHub
+avatar:
+  img: /img/avatar.png
+  effect: false
+favicon: /img/favicon.png
+index_img: /img/banner.jpg
+default_top_img: /img/banner.jpg
+cover:
+  index_enable: false
+  aside_enable: false
+  archives_enable: false
+subtitle:
+  enable: false
+search:
+  use: local_search
+  local_search:
+    preload: false
+    top_n_per_article: 2
+    unescape: false
+footer:
+  owner:
+    enable: true
+    since: 2020
+  custom_text:
+aside:
+  enable: true
+  card_announcement:
+    enable: false
+  card_author:
+    enable: true
+    description: 学习、实践与生活的记录
+    button:
+      enable: true
+      icon: fab fa-github
+      text: GitHub
+      link: https://github.com/yanzhuang-h
+busuanzi:
+  site_uv: false
+  site_pv: false
+  page_pv: false
+math:
+  use: mathjax
+  per_page: true
+share:
+  use: false
+CDN:
+  internal_provider: local
+  option:
+    fontawesome: /vendor/fontawesome/css/all.min.css

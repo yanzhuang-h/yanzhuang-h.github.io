@@ -1,0 +1,10 @@
+.site/node_modules/
+.site/public/
+.site/db.json
+.site/.deploy_git/
+.site/*.local.json
+.obsidian/
+content/vendor/fontawesome/
+.DS_Store
+Thumbs.db
+*.log

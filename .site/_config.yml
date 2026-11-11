@@ -1,0 +1,40 @@
+title: Zoney的窄门
+subtitle: 春和景明，波澜不惊
+description: 学习、实践与生活的记录
+author: Zoney Hu
+language: zh-CN
+timezone: Asia/Shanghai
+url: https://yanzhuang-h.github.io
+root: /
+permalink: posts/:title.html
+source_dir: ../content
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+theme: butterfly
+pretty_urls:
+  trailing_index: false
+  trailing_html: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+prismjs:
+  enable: false
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+per_page: 10
+pagination_dir: page
+search:
+  path: search.xml
+  field: post
+  content: true
+marked:
+  prependRoot: true
+  postAsset: false
+  smartypants: false
+  mangle: false
