@@ -49,7 +49,7 @@ powershell -ExecutionPolicy Bypass -File .\发布.ps1
 目前本机之前保存的 GitHub 登录已失效，需要在终端运行下面的命令，并在浏览器完成 GitHub 登录；不要把密码或令牌写进文章或发送到聊天：
 
 ```powershell
-gh auth login --hostname github.com --git-protocol https --web
+gh auth login --hostname github.com --git-protocol https --web --scopes workflow
 gh auth setup-git
 ```
 

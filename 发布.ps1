@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 Push-Location -LiteralPath $PSScriptRoot
 try {
     & gh auth status --hostname github.com
-    if ($LASTEXITCODE -ne 0) { throw '请先运行 gh auth login --hostname github.com --git-protocol https --web，在浏览器中登录，再重新发布。' }
+    if ($LASTEXITCODE -ne 0) { throw '请先运行 gh auth login --hostname github.com --git-protocol https --web --scopes workflow，在浏览器中登录，再重新发布。' }
     & npm.cmd --prefix '.site' ci --no-audit --no-fund
     if ($LASTEXITCODE -ne 0) { throw '网站组件安装失败。' }
     & npm.cmd --prefix '.site' run build
