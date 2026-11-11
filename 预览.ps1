@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 Push-Location -LiteralPath (Join-Path $PSScriptRoot '.site')
 try {
     if (-not (Test-Path -LiteralPath 'node_modules')) {

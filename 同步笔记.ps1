@@ -1,4 +1,4 @@
-param([switch]$DryRun)
+﻿param([switch]$DryRun)
 $ErrorActionPreference = 'Stop'
 $engine = Join-Path $PSScriptRoot '.site'
 if (-not (Test-Path -LiteralPath (Join-Path $engine 'node_modules'))) {

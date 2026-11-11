@@ -1,11 +1,13 @@
-param([string]$Message = 'Update blog notes')
+﻿param([string]$Message = 'Update blog notes')
 $ErrorActionPreference = 'Stop'
 Push-Location -LiteralPath $PSScriptRoot
 try {
     & gh auth status --hostname github.com
     if ($LASTEXITCODE -ne 0) { throw '请先运行 gh auth login --hostname github.com --git-protocol https --web --scopes workflow，在浏览器中登录，再重新发布。' }
-    & npm.cmd --prefix '.site' ci --no-audit --no-fund
-    if ($LASTEXITCODE -ne 0) { throw '网站组件安装失败。' }
+    if (-not (Test-Path -LiteralPath '.site/node_modules')) {
+        & npm.cmd --prefix '.site' ci --no-audit --no-fund
+        if ($LASTEXITCODE -ne 0) { throw '网站组件安装失败。' }
+    }
     & npm.cmd --prefix '.site' run build
     if ($LASTEXITCODE -ne 0) { throw '网站生成失败，尚未推送。' }
     $pageType = & gh api repos/yanzhuang-h/yanzhuang-h.github.io/pages --jq '.build_type'
