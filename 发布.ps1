@@ -25,6 +25,6 @@ try {
     } elseif ($LASTEXITCODE -ne 0) { throw '无法检查待发布改动。' }
     & git -c http.sslBackend=openssl push origin HEAD:main
     if ($LASTEXITCODE -ne 0) { throw '上传失败，网站尚未更新。若远端有新改动，请先处理差异；不要强制推送。' }
-    Write-Host '已经上传，GitHub 正在构建。完成后访问 https://yanzhuang-h.github.io'
+    Write-Host '已经上传，GitHub 正在构建。完成后访问 https://huzhuangyan.com'
     Write-Host '发布进度：https://github.com/yanzhuang-h/yanzhuang-h.github.io/actions'
 } finally { Pop-Location }

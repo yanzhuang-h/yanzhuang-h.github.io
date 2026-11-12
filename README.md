@@ -1,6 +1,6 @@
 # Zoney的窄门
 
-网站地址：https://yanzhuang-h.github.io
+网站地址：https://huzhuangyan.com
 
 本项目恢复自旧网站，继续使用 Hexo 和 Butterfly。`content/_posts` 中的 17 篇旧文由已发布 HTML 转回 Markdown，保留原文章地址，309 个代码块与网页中的代码逐一核对一致。文章里的旧知识内容未改写。原图片外链仍保留，可能存在已经失效的图床图片。
 
@@ -46,7 +46,7 @@ powershell -ExecutionPolicy Bypass -File .\发布.ps1
 
 需要 Node.js 22 或更新版本、Git、GitHub CLI。网站运行文件放在 `.site`，Obsidian 通常不会将隐藏目录作为笔记显示。
 
-目前本机之前保存的 GitHub 登录已失效，需要在终端运行下面的命令，并在浏览器完成 GitHub 登录；不要把密码或令牌写进文章或发送到聊天：
+首次发布需要登录 GitHub。如果以后登录失效，可以在终端运行下面的命令，并在浏览器完成登录；不要把密码或令牌写进文章或发送到聊天：
 
 ```powershell
 gh auth login --hostname github.com --git-protocol https --web --scopes workflow
@@ -73,3 +73,11 @@ gh auth setup-git
 待迁移主页：https://blog.csdn.net/m0_64615322
 
 当前公开页面和文章列表读取失败，尚未抓取或迁移 CSDN 文章。已有本地 Markdown 的文章可直接通过导入工具迁入；仅在 CSDN 保存的文章需要通过可正常访问的浏览器或后台导出取得原文，再处理图片和去重。
+
+## 自定义域名
+
+主域名为 `huzhuangyan.com`，`www.huzhuangyan.com` 由 GitHub Pages 自动跳转至主域名。
+
+阿里云解析中，根域名 `@` 使用四条 A 记录：`185.199.108.153`、`185.199.109.153`、`185.199.110.153`、`185.199.111.153`；`www` 使用 CNAME 记录指向 `yanzhuang-h.github.io`。GitHub 账户验证使用的 `_github-pages-challenge-yanzhuang-h` TXT 记录应长期保留。
+
+本项目通过 GitHub Actions 发布，域名绑定在仓库 Settings → Pages 中设置；单独放置 CNAME 文件不能代替这里的设置。域名绑定和解析生效后，还需确认 HTTPS 证书签发并启用 Enforce HTTPS。
