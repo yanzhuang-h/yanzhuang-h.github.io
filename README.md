@@ -2,11 +2,13 @@
 
 网站地址：https://huzhuangyan.com
 
-本项目恢复自旧网站，继续使用 Hexo 和 Butterfly。`content/_posts` 中的 17 篇旧文由已发布 HTML 转回 Markdown，保留原文章地址，309 个代码块与网页中的代码逐一核对一致。文章里的旧知识内容未改写。原图片外链仍保留，可能存在已经失效的图床图片。
+本项目恢复自旧网站。当前使用 Hexo 8.1.2 和 Butterfly 5.7.2。`content/_posts` 中的 17 篇旧文由已发布 HTML 转回 Markdown，保留原文章地址，309 个代码块与网页中的代码逐一核对一致。文章里的旧知识内容未改写。原图片外链仍保留，可能存在已经失效的图床图片。
+
+[2026-11-22 主题升级与首页对照](docs/history/2026-11-22-butterfly/README.md)
 
 ## 日常使用
 
-在 Obsidian 中打开 `blogs/content/_posts` 下的文章，或用 Typora 直接编辑这些 `.md` 文件。把新文件放入这个目录表示选择将其用于博客；`content` 中其他普通文件也会作为网站资源构建，所以请把它作为专门的公开内容目录。
+在网站工程的 `content/_posts` 中编辑公开文章，Obsidian 和 Typora 都可以打开这些 Markdown 文件。把新文件放入这个目录表示选择将其用于博客；`content` 中其他普通文件也会作为网站资源构建，所以请把它作为专门的公开内容目录。
 
 其他位置的笔记可以按文件导入，也可以多选；原文件保持原样。只会复制选中的 Markdown 和它引用的受支持图片、PDF、音视频附件，不会复制笔记库其他文章。导入会在本地记录所选文件，便于后续同步更新。
 
@@ -29,7 +31,7 @@ powershell -ExecutionPolicy Bypass -File .\预览.ps1
 powershell -ExecutionPolicy Bypass -File .\发布.ps1
 ```
 
-导入后在本地预览，确认文章内容后再发布。`publish: false` 或 `draft: true` 的外部笔记会被导入工具拒绝。这个标记用于防止误导入；直接在 `content/_posts` 中创建的文章由 Hexo 规则处理，草稿应放入 `content/_drafts`。
+导入后在本地预览，确认文章内容后再发布。导入器目前也接受缺少发布标记的笔记，连接私人笔记库前需要先落实逐篇公开与附件选择。`publish: false` 或 `draft: true` 的外部笔记会被导入工具拒绝。这个标记用于防止误导入；直接在 `content/_posts` 中创建的文章由 Hexo 规则处理，草稿应放入 `content/_drafts`。
 
 ## Obsidian 格式支持
 
