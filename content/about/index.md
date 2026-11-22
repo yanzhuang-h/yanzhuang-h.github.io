@@ -1,5 +1,6 @@
 ---
 title: 关于
+type: about
 ---
 
 这里是 Zoney 的个人博客，记录学习、实践与生活。

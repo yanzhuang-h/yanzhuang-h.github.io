@@ -1,0 +1,43 @@
+extends includes/layout.pug
+
+block content
+  if page.type === 'editorial-home'
+    article.editorial-home
+      section.editorial-opening(aria-label='开场')
+        .editorial-greeting
+          if config.editorial_opening
+            p.editorial-message= config.editorial_opening
+          else
+            p.editorial-verse= config.subtitle
+          p.editorial-byline= config.author
+        .editorial-landscape(aria-hidden='true')
+      if page.selected.length
+        section.editorial-selection(aria-labelledby='selected-title')
+          .editorial-section-header
+            h2#selected-title 文字
+            a.editorial-more(href=url_for('language/')) 全部文字
+              span(aria-hidden='true')  →
+          .editorial-grid
+            each note, i in page.selected
+              article.editorial-entry(class={ 'editorial-lead': i === 0 })
+                time(datetime=note.iso)= note.iso.replace(/-/g, '.')
+                h3
+                  a(href=url_for(note.url))= note.title
+                if i === 0 && note.excerpt
+                  p= note.excerpt
+  else
+    article.editorial-language
+      .editorial-catalogue-head
+        h1 文字
+        p.editorial-count= page.count + ' 篇'
+      each group in page.years
+        section.editorial-year(aria-labelledby='year-' + group.year)
+          h2(id='year-' + group.year)= group.year
+          ul.editorial-titles
+            each note in group.posts
+              li
+                time(datetime=note.iso)= note.shortDate
+                a(href=url_for(note.url))= note.title
+      nav.editorial-index-links(aria-label='其他查阅方式')
+        a(href=url_for('tags/')) 标签
+        a(href=url_for('categories/')) 分类
