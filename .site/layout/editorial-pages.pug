@@ -11,21 +11,31 @@ block content
             p.editorial-verse= config.subtitle
           p.editorial-byline= config.author
         .editorial-landscape(aria-hidden='true')
-      if page.selected.length
+      .editorial-shelves
         section.editorial-selection(aria-labelledby='selected-title')
           .editorial-section-header
             h2#selected-title 文字
             a.editorial-more(href=url_for('language/')) 全部文字
               span(aria-hidden='true')  →
-          .editorial-grid
-            each note, i in page.selected
-              article.editorial-entry(class={ 'editorial-lead': i === 0 })
-                time(datetime=note.iso)= note.iso.replace(/-/g, '.')
-                h3
-                  a(href=url_for(note.url))= note.title
-                if i === 0 && note.excerpt
-                  p= note.excerpt
-  else
+          each note, i in page.selected
+            article.editorial-entry(class={ 'editorial-lead': i === 0 })
+              time(datetime=note.iso)= note.iso.replace(/-/g, '.')
+              h3
+                a(href=url_for(note.url))= note.title
+              if i === 0 && note.excerpt
+                p= note.excerpt
+        section.editorial-work-shelf(aria-labelledby='home-works')
+          .editorial-section-header
+            h2#home-works
+              a(href=url_for('works/')) 作品
+                span(aria-hidden='true') →
+          if page.firstWork
+            .editorial-work
+              h3
+                a(href=url_for(page.firstWork.url))= page.firstWork.title
+              if page.firstWork.description
+                p= page.firstWork.description
+  else if page.type === 'editorial-language'
     article.editorial-language
       .editorial-catalogue-head
         h1 文字
@@ -41,3 +51,17 @@ block content
       nav.editorial-index-links(aria-label='其他查阅方式')
         a(href=url_for('tags/')) 标签
         a(href=url_for('categories/')) 分类
+  else if page.type === 'editorial-works'
+    article.editorial-works
+      .editorial-catalogue-head
+        h1 作品
+      if page.works.length
+        ul.editorial-works-list
+          each work in page.works
+            li.editorial-work
+              h2
+                a(href=url_for(work.url))= work.title
+              if work.description
+                p= work.description
+      else
+        p.editorial-empty 第一件作品尚未选定。

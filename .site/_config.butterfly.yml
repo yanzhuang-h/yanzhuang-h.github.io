@@ -2,6 +2,7 @@ nav:
   display_post_title: false
 menu:
   文字: /language/
+  作品: /works/
   关于: /about/
 social:
   fab fa-github: https://github.com/yanzhuang-h || GitHub

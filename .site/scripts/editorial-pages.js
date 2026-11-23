@@ -47,17 +47,32 @@ hexo.extend.filter.register('after_init', function () {
       years.get(note.year).push(note);
     }
 
+    // Only work pages deliberately placed in this site's public source join the catalogue.
+    const works = locals.pages.toArray()
+      .filter(page => page.type === 'work' && page.publish !== false && page.draft !== true
+        && /^works\/[^/]+\/index\.md$/i.test(page.source.replaceAll('\\', '/')))
+      .map(page => ({
+        title: page.title || page.source.replaceAll('\\', '/').split('/')[1],
+        url: page.path.replace(/^\/+/, '').replace(/\/index\.html$/, '/'),
+        description: typeof page.description === 'string' ? page.description : '',
+      }))
+      .sort((left, right) => left.title.localeCompare(right.title, 'zh-CN', { numeric: true }));
+
     const page = { aside: false, top_img: false, comments: false };
     return [
       ...existing.filter(entry => this.route.format(entry.path) !== 'index.html'),
       {
         path: 'index.html', layout: 'editorial-pages',
-        data: { ...page, __index: true, current: 1, layout: 'home', type: 'editorial-home', selected },
+        data: { ...page, __index: true, current: 1, layout: 'home', type: 'editorial-home', selected, firstWork: works[0] },
       },
       {
         path: 'language/index.html', layout: 'editorial-pages',
         data: { ...page, title: '文字', type: 'editorial-language', count: notes.length,
           years: Array.from(years, ([year, posts]) => ({ year, posts })) },
+      },
+      {
+        path: 'works/index.html', layout: 'editorial-pages',
+        data: { ...page, title: '作品', type: 'editorial-works', works },
       },
     ];
   });

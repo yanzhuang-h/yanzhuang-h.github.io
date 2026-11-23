@@ -49,7 +49,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   transition: none;
   backdrop-filter: none;
 }
-#body-wrap:not(.type-editorial-language) #page-header .title-seo {
+#body-wrap:not(.type-editorial-language,.type-editorial-works) #page-header .title-seo {
   display: block;
   position: absolute;
   width: 1px;
@@ -117,22 +117,22 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   border-radius: 0;
   box-shadow: none;
 }
-#body-wrap:is(.type-about,.type-evolution) #page {
+#body-wrap:is(.type-about,.type-evolution,.type-work) #page {
   max-width: 820px;
   margin: clamp(28px,6vw,78px) auto 50px;
   padding: 0;
 }
-#body-wrap:is(.type-about,.type-evolution) .page-title {
+#body-wrap:is(.type-about,.type-evolution,.type-work) .page-title {
   margin: 0 0 28px;
   font: 500 clamp(2.8rem,6vw,4.8rem)/1.2 var(--serif);
   text-align: left;
 }
-#body-wrap:is(.type-about,.type-evolution) #article-container {
+#body-wrap:is(.type-about,.type-evolution,.type-work) #article-container {
   color: var(--ink);
   font-size: 17px;
   line-height: 1.9;
 }
-#body-wrap:is(.type-about,.type-evolution) #article-container a {
+#body-wrap:is(.type-about,.type-evolution,.type-work) #article-container a {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: .18em;
@@ -164,7 +164,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   color: var(--muted);
 }
 #footer .footer-other a { color: var(--accent); text-decoration: underline; text-underline-offset: .25em; }
-#body-wrap.type-editorial-home ~ #rightside { display: none; }
+#body-wrap:is(.type-editorial-home,.type-editorial-works) ~ #rightside { display: none; }
 #footer .footer_custom_text { display: flex; gap: 18px; align-items: center; }
 #footer .evolution-link { display: inline-flex; gap: 8px; align-items: center; }
 #footer .evolution-link::before {
