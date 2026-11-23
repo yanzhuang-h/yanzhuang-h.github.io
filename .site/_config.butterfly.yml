@@ -19,9 +19,10 @@ subtitle:
   enable: false
 search:
   use: local_search
+  placeholder: 输入文章标题或关键词
   local_search:
     preload: false
-    top_n_per_article: 2
+    top_n_per_article: 1
     unescape: false
 footer:
   owner:
@@ -56,5 +57,6 @@ inject:
     - '<link rel="stylesheet" href="/css/shell.css">'
     - '<link rel="stylesheet" href="/css/editorial-pages.css">'
     - '<link rel="stylesheet" href="/css/reading.css">'
+    - '<link rel="stylesheet" href="/css/search.css">'
   bottom:
     - '<script defer src="/js/site-navigation.js"></script>'

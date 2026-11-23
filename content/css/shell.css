@@ -137,6 +137,10 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   text-decoration: underline;
   text-underline-offset: .18em;
 }
+#body-wrap.type-about #page { max-width: 720px; }
+#body-wrap.type-about #footer .copyright { display: none; }
+#body-wrap.type-about #article-container h2 { margin: 2.2em 0 .5em; font: 500 1.5em/1.5 var(--serif); }
+#body-wrap.type-about #article-container time { color: var(--muted); font: 14px/1.6 var(--sans); }
 #article-container .evolution-entry {
   margin: 2rem 0 3rem;
   padding-top: 1.4rem;
@@ -183,8 +187,6 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   cursor: pointer;
 }
 #footer-mode:hover { text-decoration: underline; }
-#local-search .search-dialog { background: var(--paper); color: var(--ink); }
-#local-search .search-result-title, #local-search .search-dialog-title { color: var(--accent); }
 @media (max-width: 650px) {
   #page-header.not-top-img, #page-header.not-top-img #nav { height: 62px; }
   #page-header #nav .site-name { font-size: 22px; }

@@ -1,4 +1,62 @@
 (() => {
+  function prepareSearch(trigger) {
+    const dialog = document.querySelector('#local-search .search-dialog');
+    if (!dialog || !trigger) return;
+
+    dialog.id = 'site-search-dialog';
+    trigger.setAttribute('aria-controls', dialog.id);
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    if (dialog.hasAttribute('data-focus-managed')) return;
+    dialog.setAttribute('data-focus-managed', '');
+    const title = dialog.querySelector('.search-dialog-title');
+    const input = dialog.querySelector('.local-search-input input');
+    const stats = dialog.querySelector('#local-search-stats');
+    title.id = 'site-search-title';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-labelledby', title.id);
+    dialog.tabIndex = -1;
+    input.setAttribute('aria-label', '搜索文章标题或正文');
+    stats.setAttribute('role', 'status');
+    stats.setAttribute('aria-atomic', 'true');
+
+    // Butterfly changes display when opening and after its closing animation.
+    let open = false;
+    const openButton = () => document.querySelector('#search-button > .search');
+    const observer = new MutationObserver(() => {
+      const visible = dialog.style.display === 'block';
+      if (visible === open) return;
+      open = visible;
+      if (open) {
+        (getComputedStyle(input).visibility === 'visible' ? input : dialog).focus({preventScroll: true});
+      } else {
+        openButton()?.focus({preventScroll: true});
+      }
+    });
+    observer.observe(dialog, {attributes: true, attributeFilter: ['style']});
+
+    window.addEventListener('search:loaded', () => {
+      queueMicrotask(() => {
+        if (open && document.activeElement === dialog) input.focus({preventScroll: true});
+      });
+    }, {once: true});
+
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const controls = [...dialog.querySelectorAll('button:not([disabled]), input:not([disabled]), a[href]')]
+        .filter(node => node.getClientRects().length && getComputedStyle(node).visibility === 'visible');
+      if (!controls.length) return;
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
   function prepareNavigation() {
     const nav = document.getElementById('nav');
     if (!nav) return;
@@ -19,6 +77,7 @@
       if (link.pathname === path) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     }
+    prepareSearch(nav.querySelector('#search-button > .search'));
     for (const [selector, name] of [['#search-button > .search', '搜索'], ['#local-search .search-close-button', '关闭搜索']]) {
       const control = document.querySelector(selector);
       if (!control || control.hasAttribute('data-keyboard')) continue;
