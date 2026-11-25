@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
+import historyTools from '../lib/content-history.cjs';
 
 const engine = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.resolve(engine, '..');
@@ -15,6 +16,17 @@ const key = p => path.resolve(p).replaceAll('\\', '/').toLowerCase();
 const hash = s => crypto.createHash('sha256').update(s).digest('hex');
 const inside = (base, p) => { const rel = path.relative(base, p); return rel === '' || (!rel.startsWith('..' + path.sep) && rel !== '..' && !path.isAbsolute(rel)); };
 const read = p => fs.readFileSync(p, 'utf8').replace(/^\uFEFF/, '');
+function writeIfChanged(file, data) {
+  const bytes = Buffer.isBuffer(data) ? data : Buffer.from(data, 'utf8');
+  if (fs.existsSync(file) && fs.readFileSync(file).equals(bytes)) return;
+  const temporary = file + '.' + crypto.randomUUID() + '.tmp';
+  try {
+    fs.writeFileSync(temporary, bytes, { flag: 'wx' });
+    fs.renameSync(temporary, file);
+  } finally {
+    fs.rmSync(temporary, { force: true });
+  }
+}
 function frontmatter(text) {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
   return match ? { data: YAML.parse(match[1]) || {}, body: text.slice(match[0].length) } : { data: {}, body: text };
@@ -78,11 +90,14 @@ try {
     const dest = path.join(posts, id + '.md');
     const previous = fs.existsSync(dest) ? frontmatter(read(dest)).data : {};
     if (!old && fs.existsSync(dest)) throw new Error('目标文章已存在，无法确定是否属于此笔记：' + dest);
+    const history = historyTools.normalizeHistory(data.history, source);
+    const date = data.date || previous.date || new Date().toISOString();
     const metadata = {
       title: String(data.title || body.match(/^#\s+(.+)$/m)?.[1] || path.basename(source, '.md')),
-      date: data.date || previous.date || new Date().toISOString(), updated: new Date().toISOString(),
+      date, updated: history.at(-1)?.date || data.updated || previous.updated || date,
       permalink: 'posts/' + id + '.html', tags: data.tags || [], categories: data.categories || [],
     };
+    if (history.length) metadata.history = history;
     if (data.mathjax !== undefined) metadata.mathjax = data.mathjax;
     const assets = new Map();
     const warnings = [];
@@ -151,11 +166,11 @@ try {
     for (const warning of plan.warnings) console.log('提示：' + warning);
     if (dryRun) continue;
     for (const [name, bytes] of plan.assets) {
-      const folder = path.join(root, 'content', 'assets', 'notes'); fs.mkdirSync(folder, { recursive: true }); fs.writeFileSync(path.join(folder, name), bytes);
+      const folder = path.join(root, 'content', 'assets', 'notes'); fs.mkdirSync(folder, { recursive: true }); writeIfChanged(path.join(folder, name), bytes);
     }
-    fs.mkdirSync(posts, { recursive: true }); fs.writeFileSync(plan.dest, plan.text, 'utf8');
+    fs.mkdirSync(posts, { recursive: true }); writeIfChanged(plan.dest, plan.text);
     manifest.notes[key(plan.note.source)] = { source: plan.note.source, vault: plan.note.vault, id: plan.note.id };
   }
-  if (!dryRun) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  if (!dryRun) writeIfChanged(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
   console.log(dryRun ? '预检查通过，未写入任何文章。' : '完成。原笔记保持原样；预览后再发布。');
 } catch (err) { console.error('导入失败：' + err.message); process.exitCode = 1; }

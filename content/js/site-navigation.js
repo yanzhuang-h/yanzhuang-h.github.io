@@ -57,10 +57,30 @@
     });
   }
 
+  function showLinkedRevisions() {
+    if (location.hash !== '#revision-history') return;
+    const list = document.getElementById('revision-history');
+    const history = list?.closest('details.content-history--article');
+    if (history && !history.open) {
+      history.open = true;
+      list.scrollIntoView();
+    }
+  }
+
   function prepareNavigation() {
     const nav = document.getElementById('nav');
     if (!nav) return;
     nav.setAttribute('aria-label', '主导航');
+    const revisionLink = document.querySelector('#post #article-container > .history-meta');
+    const postMeta = document.querySelector('#post-info #post-meta');
+    if (revisionLink && postMeta) {
+      postMeta.append(revisionLink);
+      const history = document.querySelector('details.content-history--article');
+      revisionLink.querySelector('a').addEventListener('click', event => {
+        if (history && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) history.open = true;
+      });
+    }
+    showLinkedRevisions();
     const mode = document.getElementById('footer-mode');
     const themeToggle = document.getElementById('darkmode');
     if (mode && themeToggle && mode.hidden) {
@@ -95,6 +115,7 @@
       control.setAttribute('data-keyboard', '');
     }
   }
+  window.addEventListener('hashchange', showLinkedRevisions);
   document.addEventListener('DOMContentLoaded', prepareNavigation);
   document.addEventListener('pjax:complete', prepareNavigation);
 })();

@@ -1,0 +1,31 @@
+mixin historyList
+  ol.content-history-list(id=isArticle ? 'revision-history' : undefined tabindex=isArticle ? '-1' : undefined aria-label=isArticle ? '修订记录' : undefined)
+    each entry in entries
+      li.content-history-entry
+        time(datetime=entry.date)= entry.date.replace(/-/g, '.')
+        if entry.note || entry.links
+          .content-history-change
+            if entry.note
+              span.content-history-note= entry.note
+            if entry.links
+              span.content-history-links
+                each link in entry.links
+                  a(href=link.url)= link.text
+
+if isArticle
+  - const latest = entries[entries.length - 1].date
+  p.history-meta
+    a.history-latest(href='#revision-history')
+      | 最近修订于
+      time(datetime=latest)= latest.replace(/-/g, '.')
+
+!= body
+
+if isArticle
+  details.content-history.content-history--article
+    summary 修订记录
+    +historyList
+else
+  section.content-history.content-history--work(aria-labelledby='creation-history')
+    h2.content-history-title#creation-history 创作记录
+    +historyList

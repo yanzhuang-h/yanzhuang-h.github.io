@@ -217,3 +217,77 @@
 #article-container figure.highlight .code pre :is(.number, .literal, .constant, .deletion) {
   color: var(--code-value);
 }
+
+#post #post-info .history-meta { margin: .35rem 0 0; }
+#post .history-latest,
+#post #post-meta .history-latest {
+  display: inline-block;
+  color: var(--accent);
+  font: 400 13px/1.8 var(--sans);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: .22em;
+}
+#post .history-latest:hover { text-decoration-color: currentColor; }
+
+.content-history {
+  margin-block: clamp(2.5rem, 6vw, 4rem) 1rem;
+  padding-block-start: .8rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+  text-align: start;
+}
+.content-history summary {
+  width: fit-content;
+  max-width: 100%;
+  padding-block: .4rem;
+  font: 500 1.05rem/1.65 var(--serif);
+  cursor: pointer;
+}
+.content-history summary::marker { color: var(--accent); font-size: .75em; }
+.content-history summary:hover { color: var(--accent); }
+.content-history :is(summary, a):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.content-history .content-history-title {
+  margin: .3rem 0 .8rem;
+  font: 500 clamp(1.3rem, 2.5vw, 1.65rem)/1.5 var(--serif);
+}
+.content-history .content-history-list {
+  margin: .4rem 0 0;
+  padding: 0;
+  list-style: none;
+  scroll-margin-block-start: 4rem;
+}
+.content-history .content-history-entry {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: .2rem 1.2rem;
+  margin: 0;
+  padding: .8rem 0;
+  font: 400 1rem/1.75 var(--sans);
+}
+.content-history .content-history-entry + .content-history-entry { border-top: 1px solid var(--rule); }
+.content-history-entry > time {
+  color: var(--muted);
+  font: 400 .82rem/1.7 var(--sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.content-history .content-history-change { min-width: 0; overflow-wrap: anywhere; }
+#content-inner .content-history .content-history-note { margin: 0; }
+.content-history .content-history-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem 1rem;
+}
+.content-history-links a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: .22em;
+}
+@media (max-width: 480px) {
+  .content-history .content-history-entry { grid-template-columns: minmax(0, 1fr); }
+}
