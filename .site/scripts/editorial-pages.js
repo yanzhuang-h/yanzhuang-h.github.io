@@ -46,8 +46,10 @@ function relatedTopics(notes, tags) {
 }
 
 hexo.extend.filter.register('after_init', function () {
-  const template = fs.readFileSync(path.join(this.base_dir, 'layout', 'editorial-pages.pug'), 'utf8');
-  this.theme.setView('editorial-pages.pug', template);
+  for (const name of ['editorial-pages.pug', 'profile-page.pug']) {
+    const template = fs.readFileSync(path.join(this.base_dir, 'layout', name), 'utf8');
+    this.theme.setView(name, template);
+  }
 
   // Post bylines and the category index link to the same catalogue as the genre navigation.
   const genreSlugs = Object.fromEntries(writingGenres.map(({ name, slug }) => [name, slug]));

@@ -96,6 +96,7 @@
     for (const link of nav.querySelectorAll('a[href]')) {
       if (link.pathname === path) link.setAttribute('aria-current', 'page');
       else if (link.pathname === '/language/' && path.startsWith('/language/')) link.setAttribute('aria-current', 'location');
+      else if (link.pathname === '/about/' && ['/resume/', '/guestbook/'].includes(path)) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
     prepareSearch(nav.querySelector('#search-button > .search'));

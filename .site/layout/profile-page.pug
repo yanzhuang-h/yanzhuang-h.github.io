@@ -1,0 +1,21 @@
+extends includes/layout.pug
+
+block content
+  #page
+    #article-container.container!= page.content
+    nav.about-contacts(id="在别处" aria-label="其他主页与联系方式")
+      a(href="https://v.douyin.com/9YUitwHwPFQ/")
+        i.fa-brands.fa-tiktok(aria-hidden="true")
+        | 抖音
+      a(href="https://xhslink.cn/o/9QaJvofksv")
+        i.brand-icon.xiaohongshu(aria-hidden="true")
+        | 小红书
+      a(href="https://github.com/yanzhuang-h")
+        i.fa-brands.fa-github(aria-hidden="true")
+        | GitHub
+      a(href="https://blog.csdn.net/m0_64615322")
+        i.brand-icon.csdn(aria-hidden="true")
+        | CSDN
+      a(href="mailto:zoney_hu@163.com" aria-label="写信至 zoney_hu@163.com")
+        i.fa-regular.fa-envelope(aria-hidden="true")
+        | zoney_hu@163.com
