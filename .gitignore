@@ -1,3 +1,4 @@
+/content/_drafts/
 .site/node_modules/
 .site/public/
 .site/db.json
@@ -8,3 +9,4 @@ content/vendor/fontawesome/
 .DS_Store
 Thumbs.db
 *.log
+/本机资料/

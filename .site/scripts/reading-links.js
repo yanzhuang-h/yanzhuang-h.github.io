@@ -28,12 +28,16 @@ hexo.extend.filter.register('template_locals', function (locals) {
 // shared theme fragments under the site owner's name.
 hexo.extend.filter.register('_after_html_render', function (html, { page }) {
   const author = readingAuthor(page);
-  if (!author) return html;
   const headEnd = html.indexOf('</head>');
   if (headEnd < 0) return html;
-  const head = html.slice(0, headEnd).replace(
-    /(<meta (?:name|property)="(author|article:author|copyright)" content=")[^"]*/g,
-    (_, prefix, field) => prefix + escapeHTML(field === 'copyright' ? page.copyright_author || author : author)
-  );
+  let head = html.slice(0, headEnd);
+  // Butterfly hints at its CDN on every page, even when MathJax is disabled.
+  if (!page.mathjax) head = head.replace(/<link rel="preconnect" href="\/\/cdn\.jsdelivr\.net"\s*\/?>/, '');
+  if (author) {
+    head = head.replace(
+      /(<meta (?:name|property)="(author|article:author|copyright)" content=")[^"]*/g,
+      (_, prefix, field) => prefix + escapeHTML(field === 'copyright' ? page.copyright_author || author : author)
+    );
+  }
   return head + html.slice(headEnd);
 });

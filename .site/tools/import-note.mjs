@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
+import { transformOutsideCode } from '../lib/markdown-text.mjs';
 import historyTools from '../lib/content-history.cjs';
 import genreTools from '../lib/writing-genres.cjs';
 
@@ -48,19 +49,6 @@ function findVault(source) {
     const next = path.dirname(p); if (next === p) return path.dirname(source); p = next;
   }
 }
-function transformOutsideCode(text, transform) {
-  let fence = null;
-  return text.split(/(?<=\n)/).map(line => {
-    const match = line.match(/^ {0,3}(`{3,}|~{3,})/);
-    if (match) {
-      if (!fence) fence = match[1];
-      else if (match[1][0] === fence[0] && match[1].length >= fence.length) fence = null;
-      return line;
-    }
-    if (fence || /^(?:\t| {4})/.test(line)) return line;
-    return line.split(/(`+[^`]*`+)/g).map((part, i) => i % 2 ? part : transform(part)).join('');
-  }).join('');
-}
 function listFiles(dir, found = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (e.name.startsWith('.') || e.name === 'node_modules') continue;
@@ -90,8 +78,13 @@ try {
     const sourceKey = key(source);
     const old = manifest.notes[sourceKey];
     const relative = path.relative(vault, source);
+    if (path.dirname(source).split(path.sep).some(folder => folder.toLowerCase() === '_drafts')) {
+      throw new Error('所选笔记位于草稿目录：' + source);
+    }
     const { data, body } = frontmatter(read(source));
-    if (data.publish === false || data.draft === true) throw new Error('笔记标记为 publish: false 或 draft: true，已停止导入：' + source);
+    if (data.publish === false || data.published === false || data.draft === true) {
+      throw new Error('笔记标记为草稿或不公开，已停止导入：' + source);
+    }
     const legacyId = /^\/?posts\/(\d+)\.html$/.exec(data.permalink || '')?.[1];
     if (old && legacyId && old.id !== legacyId) throw new Error('原网址和本机同步记录不符，请核对：' + source);
     const id = old?.id || legacyId || hash(relative.replaceAll('\\', '/')).slice(0, 16);

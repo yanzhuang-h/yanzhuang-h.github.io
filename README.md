@@ -27,11 +27,13 @@ powershell -ExecutionPolicy Bypass -File .\同步笔记.ps1
 # 启动本地预览，打开 http://127.0.0.1:4000
 powershell -ExecutionPolicy Bypass -File .\预览.ps1
 
-# 发布到 GitHub，随后由 GitHub Actions 自动更新网站
-powershell -ExecutionPolicy Bypass -File .\发布.ps1
+# 在 PowerShell 中列出这次要公开的文件。附件填写实际导入后生成的路径。
+$files = @('content/_posts/文章编号.md', 'content/assets/notes/附件编号.png')
+.\发布.ps1 -Path $files -Preview
+.\发布.ps1 -Path $files
 ```
 
-导入后在本地预览，确认文章内容后再发布。导入器目前也接受缺少发布标记的笔记，连接私人笔记库前需要先落实逐篇公开与附件选择。`publish: false` 或 `draft: true` 的外部笔记会被导入工具拒绝。这个标记用于防止误导入；直接在 `content/_posts` 中创建的文章由 Hexo 规则处理，草稿应放入 `content/_drafts`。
+导入后在本地预览，确认文章内容后再发布。导入器目前也接受缺少发布标记的笔记，连接私人笔记库前需要先落实逐篇公开与附件选择。导入工具会拒绝 `_drafts` 目录内的笔记，以及标记了 `publish: false`、`published: false` 或 `draft: true` 的笔记。这个标记用于防止误导入；直接在 `content/_posts` 中创建的文章由 Hexo 规则处理，草稿应放入 `content/_drafts`。
 
 ## Obsidian 格式支持
 
@@ -48,7 +50,7 @@ powershell -ExecutionPolicy Bypass -File .\发布.ps1
 
 `/language/` 按首发时间列出所有读者文章。选定体裁后仍可按年份查阅。随笔、小说、诗歌、日记、笔记各自有第一篇公开文章时，对应入口才会出现。
 
-导入选中的 Obsidian 文章时，工具会从主库的 `language/体裁名/` 识别体裁。在其他目录写作，或想为网站单独指定体裁，可在原稿文件头填写 `categories: [随笔]`。直接在网站工程中写作也用这个字段。主题填在 `tags`，例如一篇学习笔记可以同时填写 `categories: [笔记]` 和 `tags: [数据分析]`。
+导入选中的 Obsidian 文章时，工具会从主库的 `language/体裁名/` 识别体裁。在其他目录写作，或想为网站单独指定体裁，可在原稿文件头填写 `categories: [随笔]`。直接在网站工程中写作也用这个字段。主题填在 `tags`，例如一篇学习笔记可以同时填写 `categories: [笔记]` 和 `tags: [数据分析]`。含有需要排版的数学公式时，在同一处填写 `mathjax: true`。
 
 ## 写一条公开的更新记录
 
@@ -82,6 +84,8 @@ gh auth setup-git
 ```
 
 发布脚本会先生成网站，再把现有 Pages 的发布方式切换为 GitHub Actions，推送源文件到原仓库的 `main`。源仓库保留旧网站的 Git 历史，推送不使用强制覆盖。页面是否成功上线需要查看 Actions 的最终结果。
+
+每次发布的 `-Path` 都填具体文件；只有文章时可只填一个路径。清单会显示完整文件和本地已有的待推送提交。新导入的图片、PDF 等附件也需逐项选入；修改或删除的文件同样可以点名。运行 `.\发布.ps1` 会检查并推送已有提交，保留其他正在编辑和暂存的内容。脚本会检查待推送提交的历史，拦下草稿目录、本机资料与标为私密的内容，即使某份草稿随后又从网站工程中删除。
 
 如果 Pages 环境限制了可发布分支，请在仓库 Settings → Environments → github-pages 中允许 `main`。
 

@@ -45,7 +45,8 @@ busuanzi:
   page_pv: false
 math:
   use: mathjax
-  per_page: true
+  # Set mathjax: true in the front matter of articles that use TeX.
+  per_page: false
 share:
   use: false
 CDN:
