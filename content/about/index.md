@@ -14,7 +14,7 @@ type: about
 ## 在别处
 
 <nav class="about-contacts" aria-label="其他主页与联系方式">
-<a href="https://www.douyin.com/search/hhfinn?type=user"><i class="fa-brands fa-tiktok" aria-hidden="true"></i>在抖音搜 hhfinn</a>
+<a href="https://v.douyin.com/9YUitwHwPFQ/"><i class="fa-brands fa-tiktok" aria-hidden="true"></i>抖音</a>
 <a href="https://xhslink.cn/o/9QaJvofksv"><i class="brand-icon xiaohongshu" aria-hidden="true"></i>小红书</a>
 <a href="https://github.com/yanzhuang-h"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
 <a href="https://blog.csdn.net/m0_64615322"><i class="brand-icon csdn" aria-hidden="true"></i>CSDN</a>
