@@ -4,7 +4,7 @@ type: evolution
 comments: false
 ---
 
-这里留着窄门每次重要改版时的样子。
+这里留着 La Porte Étroite 每次重要改版时的样子。
 
 <section class="evolution-entry">
 <time datetime="2026-11-22">2026 年 11 月 22 日</time>

@@ -79,7 +79,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 }
 #page-header #nav .site-name {
   font: 600 25px/1.25 var(--serif);
-  letter-spacing: .1em;
+  letter-spacing: -.02em;
   color: var(--ink);
 }
 #nav #menus, #page-header #nav .menus_items {
@@ -144,6 +144,37 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 #body-wrap.type-about #footer .copyright { display: none; }
 #body-wrap.type-about #article-container h2 { margin: 2.2em 0 .5em; font: 500 1.5em/1.5 var(--serif); }
 #body-wrap.type-about #article-container time { color: var(--muted); font: 14px/1.6 var(--sans); }
+.about-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 22px;
+}
+.about-contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.about-contacts a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.about-contacts i {
+  flex: none;
+  width: 1.1em;
+  text-align: center;
+}
+/* Xiaohongshu and CSDN marks from Simple Icons (CC0), served locally. */
+.about-contacts .brand-icon {
+  height: 1.1em;
+  background-color: currentColor;
+  mask: var(--brand-icon) center / contain no-repeat;
+}
+.about-contacts .xiaohongshu { --brand-icon: url("../img/social/xiaohongshu.svg"); }
+.about-contacts .csdn { --brand-icon: url("../img/social/csdn.svg"); }
 #article-container .evolution-entry {
   margin: 2rem 0 3rem;
   padding-top: 1.4rem;
@@ -196,6 +227,17 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   #nav .nav-site-title::before { width: 13px; height: 20px; }
   #page-header #nav .menus_items, #nav #menus { gap: 17px; }
   #page-header #nav .site-page { font-size: 14px; }
+}
+@media (max-width: 420px) {
+  #page-header #nav #blog-info .nav-site-title { gap: 7px; }
+  #page-header #nav .site-name { font-size: 20px; }
+  #page-header #nav .menus_items, #nav #menus { gap: 12px; }
+  #nav #search-button .search > span { display: none; }
+  #nav #search-button .search { min-width: 24px; justify-content: center; }
+}
+@media (max-width: 360px) {
+  #page-header.not-top-img #nav { padding-inline: 14px; }
+  #page-header #nav .menus_items, #nav #menus { gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

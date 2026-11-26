@@ -3,7 +3,7 @@ title: 呼庄严
 type: about
 ---
 
-这里是窄门。我在这里写[学习与生活中的事](/language/)，也用文字把自己的创作连在一起。
+这里是 <span lang="fr">La Porte Étroite</span>（窄门）。我在这里写[学习与生活中的事](/language/)，也用文字把自己的创作连在一起。
 
 ## 近况
 
@@ -13,4 +13,10 @@ type: about
 
 ## 在别处
 
-[GitHub](https://github.com/yanzhuang-h) · [CSDN](https://blog.csdn.net/m0_64615322)
+<nav class="about-contacts" aria-label="其他主页与联系方式">
+<a href="https://www.douyin.com/search/hhfinn?type=user"><i class="fa-brands fa-tiktok" aria-hidden="true"></i>在抖音搜 hhfinn</a>
+<a href="https://xhslink.cn/o/9QaJvofksv"><i class="brand-icon xiaohongshu" aria-hidden="true"></i>小红书</a>
+<a href="https://github.com/yanzhuang-h"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
+<a href="https://blog.csdn.net/m0_64615322"><i class="brand-icon csdn" aria-hidden="true"></i>CSDN</a>
+<a href="mailto:zoney_hu@163.com" aria-label="写信至 zoney_hu@163.com"><i class="fa-regular fa-envelope" aria-hidden="true"></i>zoney_hu@163.com</a>
+</nav>
