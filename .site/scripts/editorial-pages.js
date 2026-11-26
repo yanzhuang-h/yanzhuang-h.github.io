@@ -7,7 +7,9 @@ const { writingGenres } = require('../lib/writing-genres.cjs');
 
 // The original Hexo welcome and image-test pages remain reachable at their old URLs.
 const utilityPosts = new Set(['posts/16107.html', 'posts/63534.html']);
-const featuredPaths = ['posts/31824.html', 'posts/26966.html', 'posts/55839.html'];
+const openingEssay = 'posts/84e116002afa105a.html';
+const openingQuote = '而现在，如果要用一些文字来铺垫我往后的整个叙事，那我愿意用这一篇。';
+const featuredPaths = [openingEssay, 'posts/31824.html', 'posts/26966.html', 'posts/55839.html'];
 
 function firstParagraph(html) {
   const match = String(html || '').match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
@@ -68,12 +70,13 @@ hexo.extend.filter.register('after_init', function () {
       if (this.config.timezone) date.tz(this.config.timezone);
       notes.push({
         id: post._id, title: post.title, url, iso: date.format('YYYY-MM-DD'), year: date.format('YYYY'),
-        shortDate: date.format('MM.DD'), excerpt: firstParagraph(post.content),
+        shortDate: date.format('MM.DD'),
+        excerpt: url === openingEssay && post.content?.includes(openingQuote) ? openingQuote : firstParagraph(post.content),
         categories: post.categories.map(category => category.name),
       });
     }
 
-    const selected = featuredPaths.map(url => notes.find(post => post.url === url)).filter(Boolean);
+    const selected = featuredPaths.map(url => notes.find(post => post.url === url)).filter(Boolean).slice(0, 3);
     for (const note of notes) {
       if (selected.length >= 3) break;
       if (!selected.includes(note)) selected.push(note);

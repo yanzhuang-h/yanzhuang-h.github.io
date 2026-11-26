@@ -1,5 +1,7 @@
 'use strict';
 
+const { escapeHTML } = require('hexo-util');
+
 // The recovered Markdown also serves as a record of the original publication.
 hexo.extend.filter.register('after_post_render', function linkKaggleNote(post) {
   if (post.source === '_posts/31824.md') {
@@ -11,3 +13,27 @@ hexo.extend.filter.register('after_post_render', function linkKaggleNote(post) {
   }
   return post;
 }, 5);
+
+function readingAuthor(page) {
+  if ((page.__post || page.__page) && typeof page.author === 'string') return page.author.trim();
+}
+
+hexo.extend.filter.register('template_locals', function (locals) {
+  const author = readingAuthor(locals.page);
+  if (author && !locals.page.copyright_author) locals.page.copyright_author = author;
+  return locals;
+});
+
+// Butterfly reads these head tags from the blog settings. Keep the footer and
+// shared theme fragments under the site owner's name.
+hexo.extend.filter.register('_after_html_render', function (html, { page }) {
+  const author = readingAuthor(page);
+  if (!author) return html;
+  const headEnd = html.indexOf('</head>');
+  if (headEnd < 0) return html;
+  const head = html.slice(0, headEnd).replace(
+    /(<meta (?:name|property)="(author|article:author|copyright)" content=")[^"]*/g,
+    (_, prefix, field) => prefix + escapeHTML(field === 'copyright' ? page.copyright_author || author : author)
+  );
+  return head + html.slice(headEnd);
+});

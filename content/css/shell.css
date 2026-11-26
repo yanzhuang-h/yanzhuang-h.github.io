@@ -117,27 +117,30 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   border-radius: 0;
   box-shadow: none;
 }
-#body-wrap:is(.type-about,.type-evolution,.type-work) #page {
+#body-wrap:is(.type-about,.type-evolution,.type-work,.type-manuscript) #page {
   max-width: 820px;
   margin: clamp(28px,6vw,78px) auto 50px;
   padding: 0;
 }
-#body-wrap:is(.type-about,.type-evolution,.type-work) .page-title {
+#body-wrap:is(.type-about,.type-evolution,.type-work,.type-manuscript) .page-title {
   margin: 0 0 28px;
   font: 500 clamp(2.8rem,6vw,4.8rem)/1.2 var(--serif);
   text-align: left;
 }
-#body-wrap:is(.type-about,.type-evolution,.type-work) #article-container {
+#body-wrap:is(.type-about,.type-evolution,.type-work,.type-manuscript) #article-container {
   color: var(--ink);
   font-size: 17px;
   line-height: 1.9;
 }
-#body-wrap:is(.type-about,.type-evolution,.type-work) #article-container a {
+#body-wrap:is(.type-about,.type-evolution,.type-work,.type-manuscript) #article-container a {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: .18em;
 }
 #body-wrap.type-about #page { max-width: 720px; }
+#body-wrap.type-manuscript #page { max-width: 644px; }
+#body-wrap.type-manuscript .page-title { font-size: clamp(28px, 4.6vw, 46px); }
+#body-wrap.type-manuscript #article-container { overflow-wrap: anywhere; }
 #body-wrap.type-about #footer .copyright { display: none; }
 #body-wrap.type-about #article-container h2 { margin: 2.2em 0 .5em; font: 500 1.5em/1.5 var(--serif); }
 #body-wrap.type-about #article-container time { color: var(--muted); font: 14px/1.6 var(--sans); }

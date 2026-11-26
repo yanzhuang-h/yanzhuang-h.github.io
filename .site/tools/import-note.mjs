@@ -33,6 +33,14 @@ function frontmatter(text) {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
   return match ? { data: YAML.parse(match[1]) || {}, body: text.slice(match[0].length) } : { data: {}, body: text };
 }
+function sitePath(target, origin) {
+  if (!/^https?:\/\//i.test(target) || !URL.canParse(target)) return null;
+  const url = new URL(target);
+  if (url.origin !== origin) return null;
+  // A path starting with // would otherwise be a link to another host.
+  const relative = url.href.slice(url.href.indexOf('/', url.protocol.length + 2));
+  return relative.startsWith('//') ? '/.' + relative : relative;
+}
 function findVault(source) {
   let p = path.dirname(source);
   while (true) {
@@ -64,6 +72,7 @@ function listFiles(dir, found = []) {
 }
 
 try {
+  const siteOrigin = new URL(YAML.parse(read(path.join(engine, '_config.yml'))).url).origin;
   const dryRun = args.includes('--dry-run');
   const sync = args.includes('--sync');
   const vaultIndex = args.indexOf('--vault');
@@ -117,6 +126,7 @@ try {
       date, updated: history.at(-1)?.date || data.updated || previous.updated || date,
       permalink: 'posts/' + id + '.html', tags: data.tags || [], categories,
     };
+    if (typeof data.author === 'string' && data.author.trim()) metadata.author = data.author.trim();
     if (history.length) metadata.history = history;
     if (data.mathjax !== undefined) metadata.mathjax = data.mathjax;
     const assets = new Map();
@@ -168,17 +178,28 @@ try {
         return `![${/^\d+(?:x\d+)?$/.test(alt) ? path.basename(target) : alt}](${asset(target, true)})`;
       });
       part = part.replace(/(?<!!)\[\[([^\]]+)\]\]/g, (_, value) => { const [target, alias] = value.split('|'); return noteLink(target, alias || path.basename(target).replace(/\.md$/i, ''), true); });
-      part = part.replace(/(!?)\[([^\]]*)\]\((<[^>]+>|(?:[^\s()]|\([^()]*\))+)(?:\s+["']([^"']*)["'])?\)/g, (original, bang, label, value, title) => {
+      part = part.replace(/(!?)\[([^\]]*)\]\((<[^>]+>|(?:[^\s()]|\([^()]*\))+)(\s+(?:"[^"]*"|'[^']*'))?\)/g, (original, bang, label, value, title = '') => {
         const target = value.replace(/^<|>$/g, '');
+        if (/^https?:\/\//i.test(target)) {
+          const relative = sitePath(target, siteOrigin);
+          if (relative === null) return original;
+          const destination = value.startsWith('<') ? '<' + relative + '>' : relative;
+          return `${bang}[${label}](${destination}${title})`;
+        }
         if (target.startsWith('/assets/notes/')) return original;
-        if (bang) return `![${label}](${asset(target)}${title ? ' "' + title + '"' : ''})`;
+        if (bang) return `![${label}](${asset(target)}${title})`;
         return /\.md(?:#.*)?$/i.test(target) ? noteLink(target, label) : original;
+      });
+      part = part.replace(/^( {0,3}\[[^\]]+\]:[ \t]*)(<[^>\r\n]+>|\S+)/gm, (original, prefix, value) => {
+        const target = value.replace(/^<|>$/g, '');
+        const relative = sitePath(target, siteOrigin);
+        if (relative !== null) return prefix + (value.startsWith('<') ? '<' + relative + '>' : relative);
+        if (/^(?:https?:|data:|\/\/)/i.test(target)) return original;
+        throw new Error('含本地引用式链接，请先改成内联 Markdown 链接后导入：' + source);
       });
       part = part.replace(/(<img\b[^>]*\bsrc=["'])([^"']+)(["'])/gi, (_, before, target, after) => before + asset(target) + after);
       return part;
     });
-    // Reference-style local images must be resolved explicitly rather than silently breaking.
-    if (/^ {0,3}\[[^\]]+\]:\s*(?!https?:|data:|\/\/)(\S+)/mi.test(converted)) throw new Error('含本地引用式链接，请先改成内联 Markdown 链接后导入：' + source);
     plans.push({ note, dest, assets, warnings, text: '---\n' + YAML.stringify(metadata) + '---\n\n' + converted.trimStart() });
   }
   for (const plan of plans) {
