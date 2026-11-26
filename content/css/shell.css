@@ -101,7 +101,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   text-shadow: none;
 }
 #page-header #nav .site-page::after { content: none; }
-#page-header #nav .site-page:is(:hover, [aria-current="page"]) {
+#page-header #nav .site-page:is(:hover, [aria-current="page"], [aria-current="location"]) {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: .4em;

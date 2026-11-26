@@ -4,11 +4,13 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
 import historyTools from '../lib/content-history.cjs';
+import genreTools from '../lib/writing-genres.cjs';
 
 const engine = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const root = path.resolve(engine, '..');
 const posts = path.join(root, 'content', '_posts');
 const manifestPath = path.join(engine, 'imports.local.json');
+const recoveredFolder = path.join('language', '笔记', '学习笔记', '旧站技术文章');
 const media = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.avif', '.bmp', '.pdf', '.mp3', '.wav', '.ogg', '.mp4', '.webm']);
 const args = process.argv.slice(2);
 const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : { version: 1, notes: {} };
@@ -69,33 +71,51 @@ try {
   const sources = sync ? Object.values(manifest.notes).map(x => x.source) : args.filter((v, i) => !v.startsWith('--') && (vaultIndex < 0 || i !== vaultIndex + 1));
   if (!sources.length) throw new Error(sync ? '还没有导入过笔记。请先运行 导入笔记.ps1。' : '请提供要发布的 Markdown 文件路径。');
   const explicitVault = vaultIndex >= 0 ? fs.realpathSync(path.resolve(args[vaultIndex + 1])) : null;
+  const owners = new Map(Object.entries(manifest.notes).map(([sourceKey, entry]) => [entry.id, sourceKey]));
   const pending = sources.map(value => {
     const source = fs.realpathSync(path.resolve(value));
     if (path.extname(source).toLowerCase() !== '.md') throw new Error('仅接受 Markdown：' + source);
     if (inside(path.join(root, 'content'), source)) throw new Error('这篇文章已在博客内，请直接编辑，无须再次导入。');
     const vault = explicitVault || manifest.notes[key(source)]?.vault || findVault(source);
     if (!inside(vault, source)) throw new Error('所选笔记不在指定笔记库中：' + source);
-    const old = manifest.notes[key(source)];
-    const id = old?.id || hash(path.relative(vault, source).replaceAll('\\', '/')).slice(0, 16);
-    return { source, vault, id, old };
+    const sourceKey = key(source);
+    const old = manifest.notes[sourceKey];
+    const relative = path.relative(vault, source);
+    const { data, body } = frontmatter(read(source));
+    if (data.publish === false || data.draft === true) throw new Error('笔记标记为 publish: false 或 draft: true，已停止导入：' + source);
+    const legacyId = /^\/?posts\/(\d+)\.html$/.exec(data.permalink || '')?.[1];
+    if (old && legacyId && old.id !== legacyId) throw new Error('原网址和本机同步记录不符，请核对：' + source);
+    const id = old?.id || legacyId || hash(relative.replaceAll('\\', '/')).slice(0, 16);
+    if (owners.has(id) && owners.get(id) !== sourceKey) throw new Error('同一文章地址被多份笔记使用：posts/' + id + '.html');
+    owners.set(id, sourceKey);
+    const dest = path.join(posts, id + '.md');
+    const exists = fs.existsSync(dest);
+    const previous = exists ? frontmatter(read(dest)).data : {};
+    if (!old && legacyId) {
+      // Reconnect a recovered article to its original URL on its first import.
+      const matches = path.dirname(relative) === recoveredFolder && previous.permalink === 'posts/' + id + '.html'
+        && data.title && data.title === previous.title && data.date && data.date === previous.date;
+      if (!matches) throw new Error('无法确认旧站原稿与现有文章的对应关系，请核对笔记位置、原网址、标题和首发日期：' + source);
+    } else if (!old && exists) {
+      throw new Error('目标文章已存在，无法确定是否属于此笔记：' + dest);
+    }
+    const [area, folder] = relative.split(path.sep);
+    const isGenreFolder = area === 'language' && genreTools.writingGenres.some(genre => genre.name === folder);
+    const categories = data.categories === undefined && isGenreFolder ? [folder] : data.categories ?? [];
+    return { source, vault, id, data, body, dest, previous, categories };
   });
   const selected = { ...manifest.notes };
   for (const note of pending) selected[key(note.source)] = note;
   const vaultIndexes = new Map();
   const plans = [];
   for (const note of pending) {
-    const { source, vault, id, old } = note;
-    const { data, body } = frontmatter(read(source));
-    if (data.publish === false || data.draft === true) throw new Error('笔记标记为 publish: false 或 draft: true，已停止导入：' + source);
-    const dest = path.join(posts, id + '.md');
-    const previous = fs.existsSync(dest) ? frontmatter(read(dest)).data : {};
-    if (!old && fs.existsSync(dest)) throw new Error('目标文章已存在，无法确定是否属于此笔记：' + dest);
+    const { source, vault, id, data, body, dest, previous, categories } = note;
     const history = historyTools.normalizeHistory(data.history, source);
     const date = data.date || previous.date || new Date().toISOString();
     const metadata = {
       title: String(data.title || body.match(/^#\s+(.+)$/m)?.[1] || path.basename(source, '.md')),
       date, updated: history.at(-1)?.date || data.updated || previous.updated || date,
-      permalink: 'posts/' + id + '.html', tags: data.tags || [], categories: data.categories || [],
+      permalink: 'posts/' + id + '.html', tags: data.tags || [], categories,
     };
     if (history.length) metadata.history = history;
     if (data.mathjax !== undefined) metadata.mathjax = data.mathjax;

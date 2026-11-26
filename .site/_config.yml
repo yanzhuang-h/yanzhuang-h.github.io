@@ -12,7 +12,7 @@ source_dir: ../content
 public_dir: public
 tag_dir: tags
 archive_dir: archives
-category_dir: categories
+category_dir: language
 theme: butterfly
 pretty_urls:
   trailing_index: false

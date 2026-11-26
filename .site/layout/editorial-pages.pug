@@ -38,8 +38,17 @@ block content
   else if page.type === 'editorial-language'
     article.editorial-language
       .editorial-catalogue-head
-        h1 文字
+        h1= page.title
         p.editorial-count= page.count + ' 篇'
+      nav.editorial-filters(aria-label='文字体裁')
+        each genre in page.genreLinks
+          a(href=url_for(genre.url) aria-current=genre.name === page.currentGenre ? 'page' : undefined)= genre.name
+        a.editorial-topic-index(href=url_for('tags/')) 主题索引
+      if page.topics.length
+        nav.editorial-topics(aria-label='相关主题')
+          span 相关主题
+          each topic in page.topics
+            a(href=url_for(topic.url))= topic.name
       each group in page.years
         section.editorial-year(aria-labelledby='year-' + group.year)
           h2(id='year-' + group.year)= group.year
@@ -48,9 +57,6 @@ block content
               li
                 time(datetime=note.iso)= note.shortDate
                 a(href=url_for(note.url))= note.title
-      nav.editorial-index-links(aria-label='其他查阅方式')
-        a(href=url_for('tags/')) 标签
-        a(href=url_for('categories/')) 分类
   else if page.type === 'editorial-works'
     article.editorial-works
       .editorial-catalogue-head
