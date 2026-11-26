@@ -162,6 +162,10 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   font: 500 clamp(42px, 7vw, 69px)/1.2 var(--serif);
   letter-spacing: -.045em;
 }
+#article-container #about-title {
+  font: 700 clamp(28px, 4vw, 36px)/1.3 var(--sans);
+  letter-spacing: normal;
+}
 #article-container .profile-sheet h2 { font: 500 clamp(23px, 3vw, 29px)/1.4 var(--serif); }
 .profile-sheet .opening { max-width: 31em; }
 .profile-sheet :is(.back,.detail-link,.date,.quiet,figcaption) { font: 14px/1.65 var(--sans); color: var(--muted); }
@@ -202,6 +206,7 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 }
 .profile-sheet dt { padding-top: 4px; }
 .profile-sheet dd { margin: 0; }
+.profile-sheet .resume-detail { display: block; }
 .profile-sheet details { margin-top: 20px; }
 .profile-sheet summary { width: fit-content; color: var(--accent); cursor: pointer; font-size: 15px; }
 .profile-sheet summary::marker { font-size: .7em; }

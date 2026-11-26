@@ -6,7 +6,7 @@ comments: false
 ---
 
 <article class="profile-sheet" aria-labelledby="guestbook-title">
-<a href="/about/" class="back with-back">← 关于呼庄严</a>
+<a href="/about/" class="back with-back">← 关于我</a>
 <h1 id="guestbook-title">访客簿</h1>
 <p class="opening">最近有什么小事，让你也想留下些什么？</p>
 <div class="section">
