@@ -40,7 +40,7 @@ github原生的访问地址并不清晰优雅，于是买了一个域名，记�
 我将用ai帮助我管理我的文档，整理我所有的文档，简直完成了之前我一直想做但从来没有去做的事情！！！！
 
 
-Kim在面试时被问道，what did u want ，，答案是 more。，想起准备考研复试时，偶然进入到一个网站，里面是中科大的历年机试题，网站扉页很简单的一句话，less is more（https://zdszero.github.io/ustc-graduate-guide/posts/），，我很多时间去追求简洁优雅，但是我想要的东西是很多的，我问了问自己，我到底想要什么，我想我的回答也应该是more
+Kim在面试时被问道，what did u want ，，答案是 more。，想起准备考研复试时，偶然进入到一个网站，里面是中科大的历年机试题，网站扉页很简单的一句话，less is more（<https://zdszero.github.io/ustc-graduate-guide/posts/>），，我很多时间去追求简洁优雅，但是我想要的东西是很多的，我问了问自己，我到底想要什么，我想我的回答也应该是more
 
 
 
