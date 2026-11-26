@@ -206,7 +206,6 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 }
 .profile-sheet dt { padding-top: 4px; }
 .profile-sheet dd { margin: 0; }
-.profile-sheet .resume-detail { display: block; }
 .profile-sheet details { margin-top: 20px; }
 .profile-sheet summary { width: fit-content; color: var(--accent); cursor: pointer; font-size: 15px; }
 .profile-sheet summary::marker { font-size: .7em; }
@@ -215,6 +214,32 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 .profile-sheet figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); }
 .profile-sheet figcaption { margin-top: 9px; }
 .profile-sheet .sub-intro + .section, .profile-sheet .opening + .section { margin-top: 28px; }
+#body-wrap.type-resume #page { max-width: 744px; }
+#article-container .resume-sheet { font: 16px/1.7 var(--sans); }
+#article-container .resume-sheet h1 {
+  margin-bottom: 10px;
+  font: 700 clamp(30px, 4vw, 35px)/1.25 var(--sans);
+  letter-spacing: normal;
+}
+#article-container .resume-sheet h2 { font: 700 20px/1.45 var(--sans); }
+.resume-sheet .section { padding-block: 20px; }
+.resume-sheet .record {
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 14px 18px;
+  margin-top: 12px;
+}
+.resume-sheet .date {
+  padding-top: 2px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.resume-sheet .resume-role {
+  display: inline-block;
+  margin-inline-start: .65em;
+  color: var(--muted);
+  font-size: 14px;
+}
+.resume-sheet .resume-detail { display: block; margin-top: 2px; }
 .about-contacts {
   display: flex;
   flex-wrap: wrap;
@@ -307,6 +332,10 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   #article-container .profile-sheet { font-size: 16px; }
   .profile-sheet :is(.journal,.record) { grid-template-columns: 4.5em minmax(0,1fr); gap: 12px 8px; }
   .profile-sheet .section { padding-block: 22px; }
+  .resume-sheet .record { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .resume-sheet .date { margin-bottom: 2px; }
+  .resume-sheet dd + .date { margin-top: 14px; }
+  .resume-sheet .section { padding-block: 18px; }
 }
 @media (max-width: 420px) {
   #page-header #nav #blog-info .nav-site-title { gap: 7px; }
