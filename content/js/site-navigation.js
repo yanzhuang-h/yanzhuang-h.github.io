@@ -67,6 +67,33 @@
     }
   }
 
+  let readingObserver;
+  function prepareReadingControls() {
+    readingObserver?.disconnect();
+    const controls = document.getElementById('rightside');
+    const title = document.querySelector('#post-info .post-title, .resume-sheet h1');
+    controls?.classList.remove('reading-deep');
+    if (title && controls && 'IntersectionObserver' in window) {
+      readingObserver = new IntersectionObserver(([entry]) => {
+        controls.classList.toggle('reading-deep', !entry.isIntersecting && entry.boundingClientRect.bottom < 0);
+      }, {rootMargin: '520px 0px 0px'});
+      readingObserver.observe(title);
+    }
+    const footer = document.getElementById('footer-readmode');
+    const readMode = document.getElementById('readmode');
+    if (footer && readMode && footer.hidden) {
+      footer.hidden = false;
+      footer.onclick = () => {
+        readMode.click();
+        const exit = document.querySelector('.exit-readmode');
+        if (exit) {
+          exit.setAttribute('aria-label', '退出阅读模式');
+          exit.focus({preventScroll: true});
+        }
+      };
+    }
+  }
+
   function prepareNavigation() {
     const nav = document.getElementById('nav');
     if (!nav) return;
@@ -81,6 +108,7 @@
       });
     }
     showLinkedRevisions();
+    prepareReadingControls();
     const mode = document.getElementById('footer-mode');
     const themeToggle = document.getElementById('darkmode');
     if (mode && themeToggle && mode.hidden) {

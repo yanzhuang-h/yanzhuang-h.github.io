@@ -351,14 +351,21 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   filter: saturate(.45);
   mask-image: linear-gradient(0deg, #000 30%, transparent);
 }
-#footer-mode {
+#footer-mode, #footer-readmode {
   padding: 6px 0;
   color: var(--muted);
   font: inherit;
   background: transparent;
   cursor: pointer;
 }
-#footer-mode:hover { text-decoration: underline; }
+#footer-mode:hover, #footer-readmode:hover { text-decoration: underline; }
+@media (min-width: 701px) {
+  #footer-readmode { display: none; }
+}
+@media (max-width: 700px) {
+  #footer .footer-other { flex-wrap: wrap; gap: 2px 18px; }
+  #footer .footer_custom_text { flex-wrap: wrap; gap: 2px 16px; }
+}
 @media (max-width: 650px) {
   #page-header.not-top-img, #page-header.not-top-img #nav { height: 62px; }
   #page-header #nav .site-name { font-size: 22px; }

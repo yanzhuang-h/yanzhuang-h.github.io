@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { stripHTML, unescapeHTML } = require('hexo-util');
 const { writingGenres } = require('../lib/writing-genres.cjs');
+const { renderUpdatesFeed } = require('../lib/updates-feed.cjs');
 
 // The original Hexo welcome and image-test pages remain reachable at their old URLs.
 const utilityPosts = new Set(['posts/16107.html', 'posts/63534.html']);
@@ -64,10 +65,12 @@ hexo.extend.filter.register('after_init', function () {
   const generateIndex = this.extend.generator.get('index');
   this.extend.generator.register('index', async function (locals) {
     const existing = await generateIndex.call(this, locals);
+    const isPublic = item => item.published !== false && item.publish !== false && item.draft !== true;
+    const posts = locals.posts.sort('-date').toArray().filter(post =>
+      isPublic(post) && !utilityPosts.has(post.path.replace(/^\/+/, '')) && /^_posts[\\/]/.test(post.source));
     const notes = [];
-    for (const post of locals.posts.sort('-date').toArray()) {
+    for (const post of posts) {
       const url = post.path.replace(/^\/+/, '');
-      if (post.published === false || utilityPosts.has(url)) continue;
       const date = post.date.clone();
       if (this.config.timezone) date.tz(this.config.timezone);
       notes.push({
@@ -90,10 +93,9 @@ hexo.extend.filter.register('after_init', function () {
     const genreLinks = catalogues.map(({ name, slug }) => ({ name, url: slug ? 'language/' + slug + '/' : 'language/' }));
 
     // Only work pages deliberately placed in this site's public source join the catalogue.
-    const works = locals.pages.toArray()
-      .filter(page => page.type === 'work' && page.publish !== false && page.draft !== true
-        && /^works\/[^/]+\/index\.md$/i.test(page.source.replaceAll('\\', '/')))
-      .map(page => ({
+    const publicWorks = locals.pages.toArray().filter(page => page.type === 'work' && isPublic(page)
+      && /^works\/[^/]+\/index\.md$/i.test(page.source.replaceAll('\\', '/')));
+    const works = publicWorks.map(page => ({
         title: page.title || page.source.replaceAll('\\', '/').split('/')[1],
         url: page.path.replace(/^\/+/, '').replace(/\/index\.html$/, '/'),
         description: typeof page.description === 'string' ? page.description : '',
@@ -103,6 +105,7 @@ hexo.extend.filter.register('after_init', function () {
     const page = { aside: false, top_img: false, comments: false };
     return [
       ...existing.filter(entry => this.route.format(entry.path) !== 'index.html'),
+      { path: 'atom.xml', data: renderUpdatesFeed(this.config, [...posts, ...publicWorks], firstParagraph) },
       {
         path: 'index.html', layout: 'editorial-pages',
         data: { ...page, __index: true, current: 1, layout: 'home', type: 'editorial-home', selected, firstWork: works[0] },

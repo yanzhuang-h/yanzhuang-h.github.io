@@ -5,11 +5,23 @@
   "workers_dev": true,
   "preview_urls": false,
   "observability": { "enabled": false },
+  "ratelimits": [
+    {
+      "name": "LETTER_LIMIT",
+      "namespace_id": "20261128",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "huzhuangyan-visits",
       "database_id": "feeffebe-c365-4405-a703-3ebeb8f0557a"
+    },
+    {
+      "binding": "LETTERS_DB",
+      "database_name": "huzhuangyan-guestbook",
+      "database_id": "ef2cf9e9-0f67-49f9-b06e-f87b7285891b"
     }
   ]
 }

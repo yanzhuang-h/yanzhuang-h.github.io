@@ -1,0 +1,63 @@
+#guestbook-form[hidden], #public-letters[hidden] { display: none; }
+#guestbook-form { max-width: 38em; margin: 0 0 22px; }
+#guestbook-form fieldset {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.letter-sr-only, .letter-trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+#guestbook-form label { font: 15px/1.6 var(--sans); color: var(--ink); }
+#guestbook-form :is(textarea, input[type="text"]) {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.7 var(--serif);
+}
+#guestbook-form textarea { width: 100%; min-height: 7em; margin-bottom: 8px; resize: vertical; }
+#guestbook-form #letter-signature { width: 17em; }
+#guestbook-form #letter-privacy { margin-top: 10px; }
+#guestbook-form .letter-consent {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  width: fit-content;
+  min-height: 30px;
+  cursor: pointer;
+}
+#guestbook-form .letter-consent input { flex: none; margin: 0; accent-color: var(--accent); }
+#guestbook-form button {
+  justify-self: start;
+  min-height: 42px;
+  padding: 6px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--accent);
+  font: 15px/1.6 var(--sans);
+  cursor: pointer;
+}
+#guestbook-form button:hover { background: var(--accent); color: var(--paper); }
+#guestbook-form fieldset:disabled button { opacity: .65; cursor: wait; }
+#guestbook-form :is(input, textarea, button):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#guestbook-form #letter-status:not(:empty) { margin-top: 10px; }
+#public-letters-list { margin: 0; padding: 0; list-style: none; }
+#public-letters-list li { margin: 0; padding: 14px 0 0; list-style: none; }
+#public-letters-list li + li { margin-top: 16px; border-top: 1px solid var(--rule); }
+#public-letters-list li::before { display: none; }
+#public-letters-list .letter-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+#public-letters-list .letter-credit { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 5px; }

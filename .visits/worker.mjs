@@ -1,3 +1,5 @@
+import { handleLetters } from './letters.mjs';
+
 const siteOrigins = new Set(['https://huzhuangyan.com', 'https://www.huzhuangyan.com']);
 const dayMillis = 86_400_000;
 const beijingClock = new Intl.DateTimeFormat('sv-SE', {
@@ -42,20 +44,25 @@ export default {
     if (siteOrigins.has(origin)) headers.set('Access-Control-Allow-Origin', origin);
 
     const visit = url.pathname === '/visit';
-    if (!visit && url.pathname !== '/summary') return new Response(null, { status: 404, headers });
-    if ((visit || origin) && !siteOrigins.has(origin)) return new Response(null, { status: 403, headers });
-    const method = visit ? 'POST' : 'GET';
+    const letters = url.pathname === '/letters';
+    if (!visit && !letters && url.pathname !== '/summary') return new Response(null, { status: 404, headers });
+    if ((visit || origin || (letters && request.method === 'POST')) && !siteOrigins.has(origin)) {
+      return new Response(null, { status: 403, headers });
+    }
+    const methods = letters ? ['GET', 'POST'] : [visit ? 'POST' : 'GET'];
     if (request.method === 'OPTIONS') {
-      headers.set('Access-Control-Allow-Methods', method);
+      headers.set('Access-Control-Allow-Methods', methods.join(', '));
+      if (letters) headers.set('Access-Control-Allow-Headers', 'Content-Type');
       return new Response(null, { status: 204, headers });
     }
-    if (request.method !== method) {
-      headers.set('Allow', method + ', OPTIONS');
+    if (!methods.includes(request.method)) {
+      headers.set('Allow', [...methods, 'OPTIONS'].join(', '));
       return new Response(null, { status: 405, headers });
     }
 
     const day = beijingClock.format(Date.now());
     try {
+      if (letters) return await handleLetters(request, env, headers, day);
       if (visit) {
         const location = request.cf?.country;
         const country = /^[A-Z]{2}$/.test(location) && location !== 'XX' ? location : 'unknown';
