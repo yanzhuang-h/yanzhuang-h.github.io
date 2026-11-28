@@ -2,6 +2,7 @@
 .site/node_modules/
 .site/public/
 .site/db.json
+/.visits/.wrangler/
 .site/.deploy_git/
 .site/*.local.json
 .obsidian/

@@ -1,0 +1,15 @@
+{
+  "name": "huzhuangyan-visits",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-06-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "huzhuangyan-visits",
+      "database_id": "feeffebe-c365-4405-a703-3ebeb8f0557a"
+    }
+  ]
+}

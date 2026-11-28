@@ -55,6 +55,7 @@ CDN:
     fontawesome: /vendor/fontawesome/css/all.min.css
 inject:
   head:
+    - '<meta name="visit-endpoint" content="https://huzhuangyan-visits.huzhuangyan.workers.dev">'
     - '<link rel="stylesheet" href="/css/shell.css">'
     - '<link rel="stylesheet" href="/css/editorial-pages.css">'
     - '<link rel="stylesheet" href="/css/reading.css">'
