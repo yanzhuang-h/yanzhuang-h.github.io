@@ -8,8 +8,7 @@ comments: false
 <article class="profile-sheet resume-sheet" aria-labelledby="resume-title">
 <a href="/about/" class="back with-back">← 关于我</a>
 <h1 id="resume-title">呼庄严</h1>
-<p class="sub-intro">哈尔滨工程大学计算机科学与技术硕士在读。研究多变量时间序列异常检测，关注 Agent、Harness、后端开发和具身智能。正在寻找实习机会，倾向上海。<br>
-<a class="detail-link" href="/resume/huzhuangyan-resume.pdf" download="呼庄严-完整简历.pdf">下载完整简历（PDF）</a></p>
+<p class="sub-intro">哈尔滨工程大学计算机科学与技术硕士在读。研究多变量时间序列异常检测，关注 Agent、Harness、后端开发和具身智能。正在寻找实习机会，倾向上海。</p>
 <section class="section" aria-labelledby="experience">
   <h2 id="experience">实习经历</h2>
   <dl class="record">
