@@ -94,6 +94,35 @@
     }
   }
 
+  function prepareSocialLinks() {
+    const agent = navigator.userAgent;
+    const android = /Android/i.test(agent);
+    const ios = /iPhone|iPad|iPod/i.test(agent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (!android && !ios) return;
+
+    for (const link of document.querySelectorAll('a[data-app-profile]')) {
+      link.target = '_self';
+      // Douyin registers the original v.douyin.com share URL with both mobile operating systems.
+      if (link.dataset.appProfile !== 'xiaohongshu' || link.parentElement.classList.contains('mobile-profile-pair')) continue;
+      const web = document.createElement('a');
+      web.href = link.href;
+      web.className = 'profile-web-alternative';
+      web.textContent = '网页版';
+      web.setAttribute('aria-label', '用浏览器查看小红书主页');
+      const pair = document.createElement('span');
+      pair.className = 'mobile-profile-pair';
+      link.replaceWith(pair);
+      pair.append(link, web);
+      // Xiaohongshu's published profile scheme uses the user ID from the author's share URL.
+      const profile = 'user/60d3fdf7000000002002d00f';
+      const chrome = android && /Chrome\//.test(agent) && !/; wv\)|MicroMessenger/i.test(agent);
+      link.href = chrome
+        ? 'intent://' + profile + '#Intent;scheme=xhsdiscover;package=com.xingin.xhs;S.browser_fallback_url=' + encodeURIComponent(web.href) + ';end'
+        : 'xhsdiscover://' + profile;
+      link.setAttribute('aria-label', '用小红书 App 打开主页');
+    }
+  }
+
   function prepareNavigation() {
     const nav = document.getElementById('nav');
     if (!nav) return;
@@ -109,6 +138,7 @@
     }
     showLinkedRevisions();
     prepareReadingControls();
+    prepareSocialLinks();
     const mode = document.getElementById('footer-mode');
     const themeToggle = document.getElementById('darkmode');
     if (mode && themeToggle && mode.hidden) {

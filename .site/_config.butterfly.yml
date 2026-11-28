@@ -30,7 +30,7 @@ footer:
     since: 2020
   copyright:
     enable: false
-  custom_text: '<a class="evolution-link" href="/evolution/">达尔文</a> <a href="/atom.xml" type="application/atom+xml" rel="alternate">RSS 订阅</a> <button id="footer-mode" type="button" hidden>夜间模式</button> <button id="footer-readmode" type="button" hidden>阅读模式</button>'
+  custom_text: '<a class="evolution-link" href="/evolution/">达尔文</a> <a href="/subscribe/">订阅近况</a> <button id="footer-mode" type="button" hidden>夜间模式</button> <button id="footer-readmode" type="button" hidden>阅读模式</button>'
 aside:
   enable: false
 post_meta:

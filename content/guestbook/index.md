@@ -26,7 +26,7 @@ comments: false
     </fieldset>
     <p id="letter-status" class="quiet" role="status" aria-live="polite" aria-atomic="true"></p>
   </form>
-  <p>你可以<a href="mailto:zoney_hu@163.com?subject=La%20Porte%20%C3%89troite%20%E8%AE%BF%E5%AE%A2%E6%9D%A5%E4%BF%A1">给我写封邮件</a>，也可以去我的<a href="https://v.douyin.com/9YUitwHwPFQ/">抖音</a>或<a href="https://xhslink.cn/o/9QaJvofksv">小红书</a>主页，发条私信给我。</p>
+  <p>你可以<a href="mailto:zoney_hu@163.com?subject=La%20Porte%20%C3%89troite%20%E8%AE%BF%E5%AE%A2%E6%9D%A5%E4%BF%A1">给我写封邮件</a>，也可以在<a href="https://v.douyin.com/9YUitwHwPFQ/" data-app-profile="douyin">抖音</a>或<a href="https://xhslink.cn/o/9QaJvofksv" data-app-profile="xiaohongshu">小红书</a>给我发私信。</p>
   <p>如果愿意把来信留在这里，记得告诉我，再留一个你喜欢的署名。</p>
 </section>
 <section id="public-letters" class="section" aria-labelledby="public-letters-heading" hidden>

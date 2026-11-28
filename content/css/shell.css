@@ -305,6 +305,16 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
   width: 1.1em;
   text-align: center;
 }
+.mobile-profile-pair {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45em;
+}
+#article-container .profile-sheet .profile-web-alternative, .about-contacts .profile-web-alternative {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .85em;
+}
 /* Xiaohongshu and CSDN marks from Simple Icons (CC0), served locally. */
 .about-contacts .brand-icon {
   height: 1.1em;
