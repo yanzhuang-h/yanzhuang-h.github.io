@@ -100,12 +100,13 @@
     const ios = /iPhone|iPad|iPod/i.test(agent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     if (!android && !ios) return;
     const chrome = android && /Chrome\//.test(agent) && !/; wv\)|MicroMessenger/i.test(agent);
-    // Secure profile ID from the author's Douyin share link.
+    // Douyin's share page uses a path on iOS and a query parameter on Android.
     const douyinId = 'MS4wLjABAAAA2erL78UsNXz4mf0QD93vIyJ_kEvNQWdEpJCr6iw8GXn9kUT5gdu7OpX9fvql8dzR';
     const profiles = {
       douyin: {
-        name: '抖音', scheme: 'aweme', androidPackage: 'com.ss.android.ugc.aweme',
-        path: 'user/profile/' + douyinId, web: 'https://www.douyin.com/user/' + douyinId
+        name: '抖音', scheme: 'snssdk1128', androidPackage: 'com.ss.android.ugc.aweme',
+        path: (android ? 'user/profile' : 'user/profile/' + douyinId) + '?sec_uid=' + douyinId,
+        web: 'https://www.douyin.com/user/' + douyinId
       },
       xiaohongshu: {
         name: '小红书', scheme: 'xhsdiscover', androidPackage: 'com.xingin.xhs',
