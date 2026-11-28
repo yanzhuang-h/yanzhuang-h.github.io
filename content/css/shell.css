@@ -214,6 +214,44 @@ a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
 .profile-sheet figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); }
 .profile-sheet figcaption { margin-top: 9px; }
 .profile-sheet .sub-intro + .section, .profile-sheet .opening + .section { margin-top: 28px; }
+#article-container .profile-sheet #guestbook-letters { margin-bottom: 12px; }
+#visit-summary[hidden], #visit-summary [hidden] { display: none; }
+.visit-ranges { display: flex; gap: 14px; }
+.visit-ranges button {
+  padding: 5px 0;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-bottom: 1px solid transparent;
+  font: 14px/1.5 var(--sans);
+  cursor: pointer;
+}
+.visit-ranges button[aria-pressed="true"] { border-bottom-color: currentColor; color: var(--accent); }
+.visit-ranges button:focus-visible, #visit-preferences input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#article-container .profile-sheet #visit-total { margin-top: 12px; font-variant-numeric: tabular-nums; }
+#article-container .profile-sheet .visit-chart { max-width: none; }
+#visit-bars {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: end;
+  justify-items: center;
+  height: 86px;
+  border-bottom: 1px solid var(--rule);
+}
+#visit-bars span { width: 70%; max-width: 18px; background: var(--accent); }
+#visit-axis { display: flex; justify-content: space-between; padding-top: 4px; }
+#visit-axis span:only-child { margin: 0 auto; }
+#article-container .visit-table { width: auto; margin: 12px 0; font: 14px/1.6 var(--sans); }
+#article-container .visit-table :is(th, td) { background: none; color: var(--ink); border: 0; border-bottom: 1px solid var(--rule); padding: 4px 14px 4px 0; }
+.visit-table th { text-align: left; font-weight: 600; }
+.visit-table :is(th, td):last-child { text-align: right; font-variant-numeric: tabular-nums; }
+#article-container #visit-geography h3 { margin: 20px 0 4px; font: 500 18px/1.5 var(--serif); color: var(--ink); }
+#article-container #visit-regions { display: flex; flex-wrap: wrap; gap: 4px 20px; padding: 0; margin: 8px 0 0; font: 15px/1.65 var(--sans); }
+#article-container #visit-regions li { list-style: none; padding: 0; margin: 0; }
+#visit-preferences { border-top: 1px solid var(--rule); padding-top: 16px; }
+#visit-preferences label { display: flex; align-items: center; gap: 8px; width: fit-content; margin-top: 10px; font: 15px/1.65 var(--sans); cursor: pointer; }
+#visit-preferences input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
 #body-wrap.type-resume #page { max-width: 744px; }
 #article-container .resume-sheet { font: 16px/1.7 var(--sans); }
 #article-container .resume-sheet h1 {

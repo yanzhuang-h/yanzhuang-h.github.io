@@ -61,3 +61,4 @@ inject:
     - '<link rel="stylesheet" href="/css/search.css">'
   bottom:
     - '<script defer src="/js/site-navigation.js"></script>'
+    - '<script defer src="/js/visit-preference.js"></script>'
