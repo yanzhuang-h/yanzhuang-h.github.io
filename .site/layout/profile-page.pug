@@ -1,21 +1,35 @@
 extends includes/layout.pug
 
 block content
+  mixin platformLinks()
+    a(href="https://v.douyin.com/9YUitwHwPFQ/" data-app-profile="douyin")
+      i.fa-brands.fa-tiktok(aria-hidden="true")
+      | 抖音
+    a(href="https://xhslink.cn/o/9QaJvofksv" data-app-profile="xiaohongshu")
+      i.brand-icon.xiaohongshu(aria-hidden="true")
+      | 小红书
+    a(href="https://github.com/yanzhuang-h")
+      i.fa-brands.fa-github(aria-hidden="true")
+      | GitHub
+    a(href="https://blog.csdn.net/m0_64615322")
+      i.brand-icon.csdn(aria-hidden="true")
+      | CSDN
+
   #page
-    #article-container.container!= page.content
-    nav.about-contacts(id="在别处" aria-label="其他主页与联系方式")
-      a(href="https://v.douyin.com/9YUitwHwPFQ/" data-app-profile="douyin")
-        i.fa-brands.fa-tiktok(aria-hidden="true")
-        | 抖音
-      a(href="https://xhslink.cn/o/9QaJvofksv" data-app-profile="xiaohongshu")
-        i.brand-icon.xiaohongshu(aria-hidden="true")
-        | 小红书
-      a(href="https://github.com/yanzhuang-h")
-        i.fa-brands.fa-github(aria-hidden="true")
-        | GitHub
-      a(href="https://blog.csdn.net/m0_64615322")
-        i.brand-icon.csdn(aria-hidden="true")
-        | CSDN
-      a(href="mailto:zoney_hu@163.com" aria-label="写信至 zoney_hu@163.com")
-        i.fa-regular.fa-envelope(aria-hidden="true")
-        | zoney_hu@163.com
+    if page.type === 'subscribe'
+      link(rel="stylesheet" href=url_for('/css/subscribe.css?v=2'))
+      #article-container.container
+        article.profile-sheet.newsletter(aria-labelledby="newsletter-title")
+          h1#newsletter-title= page.title
+          nav.subscribe-platforms(id="在别处" aria-labelledby="subscribe-platforms-title")
+            h2#subscribe-platforms-title 在这些平台关注我
+            .about-contacts
+              +platformLinks()
+          != page.content
+    else
+      #article-container.container!= page.content
+      nav.about-contacts(id="在别处" aria-label="其他主页与联系方式")
+        +platformLinks()
+        a(href="mailto:zoney_hu@163.com" aria-label="写信至 zoney_hu@163.com")
+          i.fa-regular.fa-envelope(aria-hidden="true")
+          | zoney_hu@163.com
